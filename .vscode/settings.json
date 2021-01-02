@@ -21,7 +21,7 @@
         "sequence": [
             "workbench.action.files.saveAll",
             {"command": "workbench.action.terminal.sendSequence","args": {"text":
-                "\u000D clear ; make all \u000D"
+                "\u000D clear ; make tex \u000D"
             }}]
     },
 ],
@@ -46,8 +46,10 @@
     "requirements.*": "config",
     /* / <section:assoc> */
 },
-"editor.tabSize": 4
+"editor.tabSize": 4,
 /* / <section:mid> */
 /* \ <section:bot> */
+"pdf-preview.default.sidebar": false,
+"pdf-preview.default.scale": "page-fit",
 }
 /* / <section:bot> */

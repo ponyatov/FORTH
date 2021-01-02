@@ -15,10 +15,13 @@ PY         = $(BIN)/python3
 PIP        = $(BIN)/pip3
 PEP        = $(BIN)/autopep8
 PYT        = $(BIN)/pytest
+LATEX	   = pdflatex -halt-on-error -output-directory=$(TMP)
 # / <section:tool>
 # \ <section:obj>
 P += $(MODULE).py
-S += $(P)
+T += tex/main.tex tex/header.tex tex/bib.tex
+T += tex/intro.tex
+S += $(P) $(T)
 # / <section:obj>
 # \ <section:all>
 all: $(PY) $(MODULE).py
@@ -26,6 +29,13 @@ all: $(PY) $(MODULE).py
 repl: $(PY) $(MODULE).py
 	$^ $@
 # / <section:all>
+# \ <section:tex>
+tex: doc/$(MODULE).pdf
+doc/$(MODULE).pdf: $(TMP)/main.pdf
+	cp $< $@
+$(TMP)/main.pdf: $(T)
+	$(LATEX) $<
+# / <section:tex>
 # \ <section:install>
 .PHONY: install
 install: $(OS)_install
@@ -56,7 +66,7 @@ main:
 shadow:
 	git push -v
 	git checkout $@
-	git pull -v
+	# git pull -v
 .PHONY: release
 release:
 	git tag $(NOW)-$(REL)
