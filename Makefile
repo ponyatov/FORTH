@@ -48,7 +48,7 @@ $(PY) $(PIP):
 MERGE  = Makefile README.md apt.txt .gitignore .vscode $(S)
 .PHONY: main
 main:
-	git push -v
+	# git push -v
 	git checkout $@
 	git pull -v
 	git checkout shadow -- $(MERGE)
