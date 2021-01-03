@@ -1,0 +1,36 @@
+\clearpage
+\secrel{embedded \F}\label{embed}\secdown
+\clearpage
+
+
+
+\begin{quotation}
+\noindent
+\verb|Defragmented Panda @ Compiler Development|\\
+\url{https://t.me/CompilerDev/77720}
+    
+\noindent
+давайте обсудим теоретически минимально возможный компилятор/интерпретатор,
+который имеет пользовательские функции, переменные, массивы. расширяемый
+\end{quotation}
+
+\begin{itemize}
+    \item получить минимально-возможную self-hosted реализацию языка для
+    микроконтроллеров (20К ОЗУ и менее)\ --- \F,
+    \href{http://www.danbigras.ru/RK86/Programm/SoftWare.html}{ассемблер-отладчик-монитор},
+    или что-то еще?
+    \item обеспечить запуск и работу на любой платформе (в режиме эмуляции
+    ARM-based микрокомпьютера, или нативно)
+    \item наработка библиотек, программ, и прошивок для:\\
+    \href{https://aliexpress.ru/item/32581820854.html}{STM32F103C8T6 BluePill}\ \ref{pill103}\ ARM Cortex-M\\
+    embedded Linux \ref{emlinux}\ x86/MIPS/ARM
+\end{itemize}
+
+\input{tex/embed/bc}
+\input{tex/embed/vm}
+\input{tex/embed/assembler}
+
+\input{tex/embed/bluepill}
+\input{tex/embed/emlinux}
+\input{tex/embed/win32}
+\secup

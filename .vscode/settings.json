@@ -32,6 +32,7 @@
         "**/bin/**": true, "**/include/**": true, "**/lib*/**": true,
         "**/share/**": true, "**/*.pyc": true, "**/pyvenv.cfg": true,
     /* / <section:watcher> */
+    "**/.lsp": true,
 },
 "files.exclude": {
     /* \ <section:exclude> */
@@ -39,6 +40,7 @@
         "**/bin/**": true, "**/include/**": true, "**/lib*/**": true,
         "**/share/**": true, "**/*.pyc": true, "**/pyvenv.cfg": true,
     /* / <section:exclude> */
+    "**/.lsp": true,
 },
 "files.associations": {
     /* \ <section:assoc> */
@@ -47,9 +49,10 @@
     /* / <section:assoc> */
 },
 "editor.tabSize": 4,
+"workbench.tree.indent": "32",
 /* / <section:mid> */
 /* \ <section:bot> */
 "pdf-preview.default.sidebar": false,
-"pdf-preview.default.scale": "page-fit",
+"pdf-preview.default.scale": "page-width",
 }
 /* / <section:bot> */

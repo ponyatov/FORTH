@@ -6,6 +6,10 @@
 \renewcommand{\familydefault}{\sfdefault}\normalfont
 %% hyperlinks pdf style
 \usepackage[unicode,colorlinks=true]{hyperref}
+%% fix heading styles for tiny paper
+% \usepackage{titlesec} % breaks .pdf
+% \titleformat{\chapter}{\Large\bfseries}{\thechapter.}{1em}{}
+% \titleformat{\section}{\large\bfseries}{\thesection.}{1em}{}
 %% fix first blank page
 \usepackage{atbegshi}% http://ctan.org/pkg/atbegshi
 \AtBeginDocument{\AtBeginShipoutNext{\AtBeginShipoutDiscard}}
@@ -15,6 +19,17 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english,russian]{babel}
 \usepackage{indentfirst}
+
+% graphics
+\usepackage[pdftex]{graphicx}
+\newcommand{\fig}[2]{{\centering\noindent\includegraphics[#2]{#1}}}
+
+% xcolor fixes
+\usepackage{xcolor}
+\definecolor{red}{rgb}{0.5,0,0}		    % R
+\definecolor{green}{rgb}{0,0.5,0}	    % G
+\definecolor{blue}{rgb}{0,0,0.5}	    % B
+\definecolor{magenta}{rgb}{0.5,0,0.5}	% magenta
 
 % relative sectioning
 \usepackage{ifthen}
@@ -39,12 +54,17 @@
 
 % misc
 \newcommand{\email}[1]{$<$\href{mailto:#1}{#1}$>$}
-% \renewcommand{\url}[1]{\href{#1}{#1}}
-\renewcommand{\emph}[1]{\textcolor{red}{#1}}
+\renewcommand{\emph}[1]{\textit{#1}}
 \newcommand{\term}[1]{\textcolor{green}{#1}}
 \newcommand{\note}[1]{\,\footnote{\ #1}}
+%% [nosep] option in lists/enums
+\usepackage{enumitem}
 
 %% languages
 \newcommand{\ci}{\texttt{Си}}
 \newcommand{\py}{\texttt{Python}}
 \newcommand{\F}{\texttt{Форт}}
+
+%% OSs
+\newcommand{\lin}{\texttt{Linux}}
+\newcommand{\win}{\texttt{Windows}}

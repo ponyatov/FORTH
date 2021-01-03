@@ -9,3 +9,4 @@
 /pyvenv.cfg
 
 !.gitignore
+/.lsp/

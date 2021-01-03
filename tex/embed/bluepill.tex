@@ -1,0 +1,45 @@
+\clearpage
+\secrel{STM32F103 BluePill103}\label{pill103}\secdown
+
+\url{https://aliexpress.ru/item/32581820854.html}
+
+\bigskip\noindent
+Когда будете покупить, берите сразу комплектом:
+\begin{description}
+    \item[bluepill] STM32F103 (не путать с pill030\ \ref{pill030}, хотя он тоже в TODO)
+    \item[stlink] \href{https://aliexpress.ru/item/32719963657.html}{ST Link v2}
+    USB-"свисток"\ для прошивки и отладки
+    \item[saleae] примитивный 8-канальный
+    \href{https://aliexpress.ru/item/4000192339928.html}{логический анализатор}
+\end{description}
+
+\begin{itemize}[nosep]
+    \item CPU: STM32F103C8T6 ARM Cortex-M3
+    \item 64K Flash / 20K SRAM
+    \item USB client: Serial/HID/MassStorage/Sound
+\end{itemize}
+
+\clearpage
+\fig{fig/pill103pins.png}{width=.95\textwidth}
+
+\secup
+
+\clearpage
+\secrel{STM32F030 BluePill030}\label{pill030}\secdown
+
+\noindent
+Минимальный 32-битный микроконтроллер, объема памяти слишком мало для запуска
+\F-системы, поэтому может работать только интерпретация готового байт-кода\
+\ref{basm}.
+
+\medskip
+\begin{itemize}[nosep]
+    \item CPU: STM32F030F4P6 ARM Cortex-M0
+    \item 16K Flash / 4K SRAM
+    \item TSSOP-20
+\end{itemize}
+
+\clearpage
+\fig{fig/pill030pins.jpg}{width=.95\textwidth}
+
+\secup
