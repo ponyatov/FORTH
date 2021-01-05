@@ -1,5 +1,6 @@
 # \ <section:var>
 MODULE     = $(notdir $(CURDIR))
+OS        ?= $(shell uname -s)
 NOW        = $(shell date +%d%m%y)
 REL        = $(shell git rev-parse --short=4 HEAD)
 # / <section:var>
@@ -40,9 +41,11 @@ T += tex/embed/embed.tex tex/embed/bc.tex tex/embed/vm.tex
 T += tex/embed/assembler.tex tex/embed/bluepill.tex
 T += tex/embed/emlinux.tex tex/embed/win32.tex
 F += fig/pill103pins.png fig/pill030pins.jpg
-C += src/vm.c src/asm.cpp src/all.c
-H += src/vm.h src/asm.hpp src/all.h src/config.h
+C += src/vm.c src/asm.cpp
+H += src/vm.h src/asm.hpp src/config.h
 S += src/asm.lex src/asm.yacc
+C += src/Linux.c src/win32.c src/cortex.c
+H += src/Linux.h src/win32.h src/cortex.h
 S += $(P) $(C) $(H) $(T) $(F)
 # / <section:obj>
 # \ <section:all>
@@ -57,10 +60,11 @@ bc: bin/vm tmp/noop.bc
 tmp/%.bc: src/%.4th bin/asm 
 	bin/asm $@ < $< && $(HEX) $@
 
-bin/vm: src/vm.c src/all.c $(H)
-	$(TCC) $(CFLAGS) -o $@ src/vm.c src/all.c
-bin/asm: src/asm.cpp src/all.c tmp/lexer.cpp tmp/parser.cpp $(H) tmp/parser.hpp
-	$(CXX) $(CFLAGS) -o $@ src/asm.cpp src/all.c tmp/lexer.cpp tmp/parser.cpp
+bin/vm: $(C) $(H)
+	$(TCC) $(CFLAGS) -D$(OS) -DVM  -o $@ src/vm.c src/$(OS).c
+bin/asm: $(C) $(H)
+	$(CXX) $(CFLAGS) -D$(OS) -DASM -o $@ src/vm.c src/$(OS).c \
+		src/asm.cpp tmp/lexer.cpp tmp/parser.cpp
 
 tmp/lexer.cpp: src/asm.lex
 	flex -o $@ $<
@@ -76,13 +80,12 @@ $(TMP)/main.pdf: $(T)
 	$(LATEX) $< && $(LATEX) $<
 pdf: $(TMP)/$(MODULE)_$(NOW).pdf
 $(TMP)/$(MODULE)_$(NOW).pdf: $(TMP)/main.pdf
-	cp $< $@
-	# ghostscript \
-	# 	-sDEVICE=pdfwrite \
-	# 	-dMaxSubsetPct=100 \
-	# 	-dPDFSETTINGS=/ebook \
-	# 	-dNOPAUSE -dBATCH \
-	# 	-sOutputFile=$@ $<
+	ghostscript \
+		-sDEVICE=pdfwrite \
+		-dMaxSubsetPct=100 \
+		-dPDFSETTINGS=/ebook \
+		-dNOPAUSE -dBATCH \
+		-sOutputFile=$@ $<
 # / <section:tex>
 # \ <section:install>
 .PHONY: install

@@ -4,7 +4,6 @@
 \begin{verbatim}
 src/
     vm.c vm.h config.h
-    all.c all.h
     linux.c linux.h win32.c win32.h
     cortex.c cortex.h
 bin/
@@ -29,23 +28,46 @@ VM написана на ANSI \ci\ максимально переносимо, 
 #define Dsz 0x10
 \end{verbatim}
 
-\noindent
-Образ памяти и указатель компиляции используются одновременно и в ВМ, и в
-байт-ассемблере:
-
-\begin{verbatim}// all.c
-BYTE  M[Msz];               // основная память форт-машины
-UCELL Cp=0;                 // указатель компиляции
-\end{verbatim}
-
 \clearpage
+\secrel{Память \F-ВМ}
 \begin{verbatim}// vm.c
+BYTE  M[Msz];                   // основная память форт-машины
+UCELL Cp=0;                     // указатель компиляции
+#ifdef VM
 UCELL Ip=0;                     // указатель инструкций
 UCELL R[Rsz]; UCELL Rp=0;       // стек возвратов
  CELL D[Dsz]; BYTE  Dp=0;       // стек данных < 255 ячеек
+#endif // VM
 \end{verbatim}
 
+Некоторый код, и структуры данных типа образа памяти и указателя компиляции,
+используются одновременно и в виртуальной машине, и в байт-ассемблере. Другие
+фрагменты кода наоборот должны отличаться, например функция
+\verb|main()|\ \ref{init}.
+
+\clearpage
+Поэтому при компиляции, в исходном коде используются два макро-определения, и
+условная компиляция через \verb|#ifdef|:
+\begin{itemize}
+    \item \verb|#ifdef ASM|
+    \item \verb|#ifdef VM|
+\end{itemize}
+
+\begin{verbatim}// Makefile
+
+bin/vm: $(C) $(H)
+  $(TCC) $(CFLAGS) -D$(OS) -DVM  -o $@ src/vm.c src/$(OS).c
+
+bin/asm: $(C) $(H)
+  $(CXX) $(CFLAGS) -D$(OS) -DASM -o $@ src/vm.c src/$(OS).c \
+                     src/asm.cpp tmp/lexer.cpp tmp/parser.cpp
+\end{verbatim}
+
+\clearpage
+\secrel{Запуск системы}\label{init}
 \begin{verbatim}// vm.c
+
+#ifdef VM
 int main(int argc, char *argv[]) {
     // проверка аргументов командной строки: указать .bc файл
     assert(argc>=2); args(argc,argv);
@@ -54,6 +76,8 @@ int main(int argc, char *argv[]) {
     assert(fread(M,Msz,1,img)); fclose(img);
     // запуск интерпретатора
     interpreter();
+}
+#endif // VM
 \end{verbatim}
 
 \secup

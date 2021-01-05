@@ -1,10 +1,6 @@
 #include "asm.hpp"
 
-void CB(BYTE b) {
-    printf("%.4X: %.2X\n",Cp,b);
-    M[Cp++] = b; assert(Cp<Msz);
-}
-
+#ifdef ASM
 int main(int argc, char *argv[]) {
     // check args: at least one source code file in .4th
     assert(argc>=2); args(argc,argv);
@@ -19,6 +15,7 @@ int main(int argc, char *argv[]) {
     // done
     return 0;
 }
+#endif // ASM
 
 void yyerror(const char *msg) {
     fprintf(stdout,"\n\n%i: %s [%s]\n\n",yylineno,msg,yytext);
