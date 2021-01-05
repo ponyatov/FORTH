@@ -39,14 +39,16 @@ T += tex/micro/io.tex
 T += tex/object/object.tex
 T += tex/embed/embed.tex tex/embed/bc.tex tex/embed/vm.tex
 T += tex/embed/assembler.tex tex/embed/bluepill.tex
+T += tex/embed/lex.tex tex/embed/yacc.tex
 T += tex/embed/emlinux.tex tex/embed/win32.tex
-F += fig/pill103pins.png fig/pill030pins.jpg
+I += fig/pill103pins.png fig/pill030pins.jpg
 C += src/vm.c src/asm.cpp
 H += src/vm.h src/asm.hpp src/config.h
 S += src/asm.lex src/asm.yacc
 C += src/Linux.c src/win32.c src/cortex.c
 H += src/Linux.h src/win32.h src/cortex.h
-S += $(P) $(C) $(H) $(T) $(F)
+F += src/empty.4th src/noop.4th src/FORTH.4th
+S += $(P) $(C) $(H) $(T) $(I) $(F)
 # / <section:obj>
 # \ <section:all>
 all: $(PY) $(MODULE).py
@@ -54,7 +56,7 @@ all: $(PY) $(MODULE).py
 repl: $(PY) $(MODULE).py
 	$^ $@
 
-bc: bin/vm tmp/noop.bc
+bc: bin/vm tmp/FORTH.bc
 	$^
 
 tmp/%.bc: src/%.4th bin/asm 
@@ -62,7 +64,7 @@ tmp/%.bc: src/%.4th bin/asm
 
 bin/vm: $(C) $(H)
 	$(TCC) $(CFLAGS) -D$(OS) -DVM  -o $@ src/vm.c src/$(OS).c
-bin/asm: $(C) $(H)
+bin/asm: $(C) $(H) tmp/lexer.cpp tmp/parser.cpp
 	$(CXX) $(CFLAGS) -D$(OS) -DASM -o $@ src/vm.c src/$(OS).c \
 		src/asm.cpp tmp/lexer.cpp tmp/parser.cpp
 

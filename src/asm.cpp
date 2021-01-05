@@ -22,3 +22,12 @@ void yyerror(const char *msg) {
     fprintf(stderr,"\n\n%i: %s [%s]\n\n",yylineno,msg,yytext);
     exit(-1);
 }
+
+void CB(BYTE b) {                                   // Compile Byte
+    M[Cp++] = b; assert(Cp<Msz);
+}
+
+void CC(CELL c) {                                   // Compile Cell
+    *((CELL*)&M[Cp]) = c;       // only for little-endians
+    Cp += 2; assert(Cp<Msz);
+}

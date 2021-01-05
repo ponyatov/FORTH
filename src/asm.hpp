@@ -12,5 +12,6 @@ extern void yyerror(const char *msg);   // error callback
 #include "tmp/parser.hpp"
 
 extern void CB(BYTE b);                 // Compile Byte
+extern void CC(CELL c);                 // Compile Cell
 
 #endif // _H_ASM

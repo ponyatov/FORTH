@@ -22,7 +22,11 @@ extern BYTE  M[Msz];    // main Memory
 extern UCELL Cp;        // Compilation Pointer
 
                         // opcodes
-#define NOP (0x00)
-#define BYE (0xFF)
+#define NOP  (0x00)
+#define BYE  (0xFF)
+#define JMP  (0x01)
+#define qJMP (0x02)
+#define CALL (0x03)
+#define RET  (0x04)
 
 #endif // _H_VM

@@ -1,0 +1,53 @@
+\clearpage
+\secrel{bison парсер/компилятор}
+
+\begin{verbatim}// asm.yacc
+%{
+    #include "asm.hpp"
+%}
+\end{verbatim}
+Директива включает генерацию \verb|tmp/parser.hpp| с описаниями токенов для лексера:
+\begin{verbatim}
+%defines %union {
+    BYTE op0;
+    BYTE op1;
+    CELL num;
+}
+\end{verbatim}
+\clearpage
+\noindent
+Полный перечень токенов с указанием их типов:
+\begin{verbatim}
+%token <op0> op0
+%token <op1> op1
+%token <num> num
+\end{verbatim}
+Рекурсивное стартовое правило: пустой файл, или последовательность команд:
+\begin{verbatim}
+%%
+REPL :
+REPL : REPL cmd
+\end{verbatim}
+Доступны два вида команд: одиночная, и команда с параметром:
+\begin{verbatim}
+cmd : op0           { CB($1);         }
+cmd : op1 num       { CB($1); CC($2); }
+\end{verbatim}
+
+\noindent
+Компиляция выполняется набором функций, которые принимают значение байта или
+ячейки, и добавляют их в буфер компиляции \verb|M[Cp<Msz]|.
+
+\begin{verbatim}// asm.cpp
+void CB(BYTE b) {                   // Compile Byte:
+    M[Cp++] = b; assert(Cp<Msz);    // скомпилировать байт
+}
+void CC(CELL c) {                   // Compile Cell
+    *((CELL*)&M[Cp]) = c;           // только для
+    Cp += 2; assert(Cp<Msz);        // little-endian
+}
+\end{verbatim}
+Для компиляции ячейки используеся хитрое заклинание с указателями, которое
+правильно работает только для little-endian архитектур. Удачно, что для
+большинства популярных архитектур порядок байт совпадает, поэтому запуск на x86
+скомпилирует \textbf{сначала младший байт} ячейки.
