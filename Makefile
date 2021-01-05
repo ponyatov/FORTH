@@ -8,6 +8,7 @@ CWD        = $(CURDIR)
 BIN        = $(CWD)/bin
 DOC        = $(CWD)/doc
 TEX        = $(CWD)/tex
+SRC        = $(CWD)/src
 TMP        = $(CWD)/tmp
 # / <section:dir>
 # \ <section:tool>
@@ -17,7 +18,15 @@ PIP        = $(BIN)/pip3
 PEP        = $(BIN)/autopep8
 PYT        = $(BIN)/pytest
 LATEX	   = pdflatex -halt-on-error -output-directory=$(TMP)
+TCC        = tcc
+CC         = gcc
+CXX        = g++
+HEX        = hexdump -C
 # / <section:tool>
+# \ <section:cfg>
+CFLAGS += -O0 -g3
+CFLAGS += -I$(CWD) -I$(SRC)
+# / <section:cfg>
 # \ <section:obj>
 P += $(MODULE).py
 T += tex/main.tex tex/header.tex tex/bib.tex
@@ -31,8 +40,8 @@ T += tex/embed/embed.tex tex/embed/bc.tex tex/embed/vm.tex
 T += tex/embed/assembler.tex tex/embed/bluepill.tex
 T += tex/embed/emlinux.tex tex/embed/win32.tex
 F += fig/pill103pins.png fig/pill030pins.jpg
-C += src/vm.c src/asm.cpp
-H += src/vm.h src/asm.hpp
+C += src/vm.c src/asm.cpp src/all.c
+H += src/vm.h src/asm.hpp src/all.h src/config.h
 S += src/asm.lex src/asm.yacc
 S += $(P) $(C) $(H) $(T) $(F)
 # / <section:obj>
@@ -41,6 +50,23 @@ all: $(PY) $(MODULE).py
 	$^ $@
 repl: $(PY) $(MODULE).py
 	$^ $@
+
+bc: bin/vm tmp/noop.bc
+	$^
+
+tmp/%.bc: src/%.4th bin/asm 
+	bin/asm $@ < $< && $(HEX) $@
+
+bin/vm: src/vm.c src/all.c $(H)
+	$(TCC) $(CFLAGS) -o $@ src/vm.c src/all.c
+bin/asm: src/asm.cpp src/all.c tmp/lexer.cpp tmp/parser.cpp $(H) tmp/parser.hpp
+	$(CXX) $(CFLAGS) -o $@ src/asm.cpp src/all.c tmp/lexer.cpp tmp/parser.cpp
+
+tmp/lexer.cpp: src/asm.lex
+	flex -o $@ $<
+tmp/parser.cpp: src/asm.yacc
+	bison -o $@ $<
+
 # / <section:all>
 # \ <section:tex>
 tex: doc/$(MODULE).pdf

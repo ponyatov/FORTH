@@ -13,7 +13,7 @@
         "sequence": [
             "workbench.action.files.saveAll",
             {"command": "workbench.action.terminal.sendSequence","args": {"text":
-                "\u000D clear ; make repl \u000D"
+                "\u000D clear ; make tex \u000D"
             }}]
     },
     {
@@ -21,7 +21,7 @@
         "sequence": [
             "workbench.action.files.saveAll",
             {"command": "workbench.action.terminal.sendSequence","args": {"text":
-                "\u000D clear ; make tex \u000D"
+                "\u000D clear ; make bc \u000D"
             }}]
     },
 ],

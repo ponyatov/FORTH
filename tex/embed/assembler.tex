@@ -5,7 +5,8 @@
 src/
     asm.lex asm.yacc
     asm.cpp asm.hpp
-    vm.h
+    all.c all.h
+    vm.h config.h
 bin/
     asm[.exe]
 \end{verbatim}
@@ -14,5 +15,87 @@ bin/
 Для компиляции программ из исходного кода в бинарные файлы с байт-кодом
 предоставляется кросс-ассемблер, который работает самостоятельно, отдельно от
 \F-системы, и виртуальной машины.
+
+\clearpage
+\secrel{flex лексер}
+
+Для синтаксического разбора в байт-ассемблере применяется классическая связка генераторов:
+\begin{description}
+    \item[lex/flex] генерирует код \term{лексера}: на основе набора
+    \term{регулярных выражений} создается файл \verb|tmp/lexer.c| c
+    \term{конечным автоматом}, который выбирает из исходного кода символы
+    поштучно, и группирует их в \term{лексемы}\note{структура включает строку,
+    тип лексемы, номер строки в исходном файле}
+    \item[yacc/bison] генерирует код \term{парсера}: синтаксис может быть
+    достаточно сложным, как минимум инфиксным, со скобками, определением
+    структур данных, с проверкой допустимых форматов команд ассемблера, и т.д.
+    Сгенерированный парсер использует внешний лексер через вызов функции
+    \verb|yylex()|, и переменные \verb|yytext|, \verb|yylineno|.
+\end{description}
+
+\begin{verbatim}// asm.hpp
+extern int  yylex();        // интерфейс лексера
+extern char *yytext;        // строка лексемы
+extern int  yylineno;       // текущая строка исходного кода
+\end{verbatim}
+
+Оба инструмента позволяют вставлять произвольный код на \ci/\cpp, выполняемый
+при срабатывании каждого правила. Также поддерживаются переключения режима,
+например общий синтаксис, и разбор строк работают в разных режимах.
+
+\begin{verbatim}// asm.hpp
+extern int yyparse();                   // интерфейс парсера
+extern void yyerror(const char *msg);   // error callback
+#include "tmp/parser.hpp"
+\end{verbatim}
+
+\verb|yacc| предоставляет для лексера описания типов лексем, в виде их
+целочисленных кодов, и описания структур для их хранения.
+
+\begin{verbatim}// asm.lex
+%{
+    #include "asm.hpp"
+%}
+
+%option noyywrap yylineno
+
+%%
+\end{verbatim}
+
+\clearpage
+\secrel{bison парсер}
+
+\begin{verbatim}// asm.yacc
+%{
+    #include "asm.hpp"
+%}
+\end{verbatim}
+Директива включает генерацию \verb|tmp/parser.hpp| с описаниями токенов для лексера:
+\begin{verbatim}
+%defines %union { BYTE op0; }
+\end{verbatim}
+Полный перечень токенов с указанием их типов:
+\begin{verbatim}
+%token <op0> nop
+%token <op0> bye
+\end{verbatim}
+Рекурсивное стартовое правило: пустой файл, или последовательность команд:
+\begin{verbatim}
+%%
+REPL :
+REPL : REPL cmd
+\end{verbatim}
+\begin{verbatim}
+cmd : nop           { CB(NOP); }
+cmd : bye           { CB(BYE); }
+\end{verbatim}
+
+\noindent
+Компиляция выполняется набором функций, которые принимают значение байта или ячейки,
+и добавляют их в буфер компиляции \verb|M[Cp<Msz]|.
+
+\begin{verbatim}// asm.hpp
+extern void CB(BYTE b); // Compile Byte: скомпилировать байт
+\end{verbatim}
 
 \secup
