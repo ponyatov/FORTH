@@ -52,7 +52,7 @@ void LL(std::string* l, CELL a) {                   // Add/Resolve Label
         labels[*l] = a;                             // append to known
         auto vec = forward.find(*l);                // scan for fwd[l]->addr[]
         if ( vec != forward.end()) {                // resolve forwards
-            for (auto addr:vec->second)
+            for (auto addr: vec->second)
                 *((UCELL*)&M[addr]) = a;            // backpatch
             forward.erase(*l);                      // drop from fwd
         }

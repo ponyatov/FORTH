@@ -15,7 +15,7 @@
 \AtBeginDocument{\AtBeginShipoutNext{\AtBeginShipoutDiscard}}
 
 % Cyrillization
-%% \usepackage[T1,T2A]{fontenc}
+% \usepackage[T1,T2A]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[english,russian]{babel}
 \usepackage{indentfirst}
@@ -72,3 +72,13 @@
 %% OSs
 \newcommand{\lin}{\texttt{Linux}}
 \newcommand{\win}{\texttt{Windows}}
+
+% Listings
+\usepackage{listings}
+\lstset{
+    extendedchars=true,inputencoding=utf8,
+    keywordstyle=\textbf,
+    commentstyle=\color{blue}\textbf,
+    basicstyle=\small,
+    frame=single,
+}

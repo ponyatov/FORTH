@@ -43,6 +43,7 @@ T += tex/embed/lex.tex tex/embed/yacc.tex tex/embed/labels.tex
 T += tex/embed/emlinux.tex tex/embed/win32.tex
 I += fig/pill103pins.png fig/pill030pins.jpg
 I += fig/backpatch.dot
+T += tex/game/game.tex tex/game/sdl.tex
 C += src/vm.c src/asm.cpp
 H += src/vm.h src/asm.hpp src/config.h
 S += src/asm.lex src/asm.yacc
