@@ -4,6 +4,7 @@
 #include "config.h"
 
 #include <stdint.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
@@ -28,5 +29,6 @@ extern UCELL Cp;        // Compilation Pointer
 #define qJMP (0x02)
 #define CALL (0x03)
 #define RET  (0x04)
+#define LIT  (0x05)
 
 #endif // _H_VM

@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "stkb.rewrap",
+        // "tabnine.tabnine-vscode",
+        "ms-vscode.cpptools",
+        "faustinoaq.lex-flex-yacc-bison",
+        "fttx.language-forth",
+    ]
+}

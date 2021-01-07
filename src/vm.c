@@ -4,24 +4,49 @@
 UCELL Cp=0;                 // Compilation Pointer
 #ifdef VM
 UCELL Ip=0;                 // Instruction Pointer
+ BYTE Op=0;                 // Instruction OPcode
 UCELL R[Rsz]; UCELL Rp=0;   // Return stack
- CELL D[Dsz]; BYTE  Dp=0;   // Data stack
+  int D[Dsz]; BYTE  Dp=0;   // Data stack (with native cell size)
 #endif // VM
 
 void args(int argc, char *argv[]) {
     for (int i=0;i<argc;i++) printf("argv[%i] = [%s]\n",i,argv[i]);
-    printf("\n");
 }
 
-#ifdef VM
+#ifndef ASM
+
+void unk()  { fprintf(stderr,"\tunknown command\n\n"); abort(); }
+void nop()  { fprintf(stderr,"nop"); }
+void bye()  { fprintf(stderr,"bye\n\n"); exit(0); }
+
+void jmp()  { Ip = *((UCELL*)&M[Ip]); fprintf(stderr,"jmp %.4X",Ip); }
+
+void interpreter() {
+    for (uint tick=0;;tick++) {                 // VM commands counter
+        assert(TICK_LIMIT);                     // per-command checks
+        assert(Ip<Msz);
+        Op = M[Ip++];                               // command fetch
+        fprintf(stderr,"\n%.4X: %.2X ",Ip-1,Op);    // trace
+                                                    // command decode
+        switch (Op) {                               // command run
+            case NOP: nop(); break;
+            case BYE: bye(); break;
+            case JMP: jmp(); break;
+            default: unk();
+        }
+    }
+}
+
 int main(int argc, char *argv[]) {
     // args
     assert(argc>=2);
     args(argc,argv);
     // load byte-code
     FILE *img = fopen(argv[1],"rb"); assert(img);
-    assert(fread(M,1,Msz,img)); fclose(img);
-    // run interpreter
+    assert(Cp=fread(M,1,Msz,img)); fclose(img);
+    // run
+    interpreter();
     return 0;
 }
-#endif // VM
+
+#endif // ASM

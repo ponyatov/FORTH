@@ -8,19 +8,14 @@
 \end{verbatim}
 Директива включает генерацию \verb|tmp/parser.hpp| с описаниями токенов для лексера:
 \begin{verbatim}
-%defines %union {
-    BYTE op0;
-    BYTE op1;
-    CELL num;
-}
+%defines %union { BYTE b; CELL c; std::string* s; }
 \end{verbatim}
-\clearpage
+% \clearpage
 \noindent
 Полный перечень токенов с указанием их типов:
 \begin{verbatim}
-%token <op0> op0
-%token <op1> op1
-%token <num> num
+%token <b> op0      %token <b> op1      %token <c> num
+%token colon        %token <s> sym
 \end{verbatim}
 Рекурсивное стартовое правило: пустой файл, или последовательность команд:
 \begin{verbatim}
@@ -30,14 +25,15 @@ REPL : REPL cmd
 \end{verbatim}
 Доступны два вида команд: одиночная, и команда с параметром:
 \begin{verbatim}
-cmd : op0           { CB($1);         }
-cmd : op1 num       { CB($1); CC($2); }
+cmd : op0       { CB($1);            } // byte:op
+cmd : op1 num   { CB($1); CC($2);    } // byte:op cell:number
+cmd : op1 sym   { CB($1); CL($2,Cp); } // byte:op cell:addr|-1
+cmd : sym colon { LL($1,Cp);         } // Cp -> labels/forward
 \end{verbatim}
-
-\noindent
 Компиляция выполняется набором функций, которые принимают значение байта или
 ячейки, и добавляют их в буфер компиляции \verb|M[Cp<Msz]|.
 
+\clearpage
 \begin{verbatim}// asm.cpp
 void CB(BYTE b) {                   // Compile Byte:
     M[Cp++] = b; assert(Cp<Msz);    // скомпилировать байт

@@ -2,15 +2,19 @@
     #include "asm.hpp"
 %}
 
-%defines %union { BYTE op0; BYTE op1; CELL num; }
+%defines %union { BYTE b; CELL c; std::string* s; }
 
-%token <op0> op0
-%token <op1> op1
-%token <num> num
+%token <b> op0
+%token <b> op1
+%token <c> num
+%token colon
+%token <s> sym
 
 %%
 REPL :
 REPL : REPL cmd
 
-cmd : op0           { CB($1);         }
-cmd : op1 num       { CB($1); CC($2); }
+cmd : op0           { printf("\n%.4X: %.2X"     ,Cp,$1);    CB($1);         }
+cmd : op1 num       { printf("\n%.4X: %.2X %.4X",Cp,$1,$2); CB($1); CC($2); }
+cmd : op1 sym       { printf("\n%.4X: %.2X %s"  ,Cp,$1,$2->c_str()); CB($1); CL($2,Cp); }
+cmd : sym colon     { printf("\n%.4X:\t%s:"     ,Cp,$1->c_str());    LL($1,Cp);      }

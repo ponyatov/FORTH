@@ -1,0 +1,72 @@
+\clearpage
+\secrel{Метки вперёд, backpatching}
+
+\noindent
+Символьные метки и ссылки вперёд реализуются черед две структуры:
+\begin{verbatim}// asm.cpp
+
+// известные метки: 0/1 адрес на метку, переопределения нет
+std::map<std::string,CELL>                labels;
+
+// метки вперёд: 1+ адрес на метку
+// хранятся адреса параметров команд jmp/call
+std::map<std::string,std::vector<CELL>>   forward;
+\end{verbatim}
+
+При компиляции вызов/переходов вперед используется \term{backpatching}: так как
+адрес перехода ещё не известен, команды компилируются \emph{с фиктивным адресом}
+(-1 = 0xFFFF), адреса команд или их параметров накапливаются в структуре вида
+\verb|map<string,vector<addr>>|.
+
+При определении каждой новой метки структура \verb|forward{}| проверяется на
+наличие списа сохранённых адресов, по которым выполняется корректировка ранее
+скомпилированного кода: параметры команд перехода переписываются на новый
+известный адрес (\term{ссылка вперёд}), затем запись о найденной метке удаляется
+из \verb|forward{}|.
+
+\smallskip
+Одновременно с этим адреса всех меток в процессе \term{прохода компиляции}
+добавляются в таблицу известных меток \verb|labels{}|. При компиляции команд
+перехода на символьную метку выполняется поиск \emph{единственного} адреса по
+этой таблице, и команда компилируются сразу с известным адресом (\term{ссылкой
+назад}).
+
+\fig{tmp/backpatch.pdf}{width=\textwidth}
+
+\begin{verbatim}
+#include <map>
+#include <vector>
+std::map<std::string,CELL>                labels;
+std::map<std::string,std::vector<CELL>>   forward;
+\end{verbatim}
+\clearpage
+\begin{verbatim}
+void CL(std::string* l, CELL a)               // Compile Label
+{
+  if (labels.find(*l) == labels.end()) {      // if unknown
+      if (forward.find(*l) == forward.end())  // forwards:
+          forward[*l] = std::vector<CELL>();  // new addr[]
+      forward[*l].push_back(a);               // append
+      CC(-1);                                 // addr:-1
+  } else 
+      CC(labels[*l]);                         // addr:known
+}
+\end{verbatim}
+Код \verb|data.find(some) == data.end()|\ --- проверка на отсутствие элемента в
+контейнере данных, один из кодовых шаблонов \cpp.
+\clearpage
+\begin{verbatim}
+void LL(std::string* l, CELL a)         // Add Label
+{
+  if (labels.find(*l) == labels.end()) 
+    labels[*l] = a;                     // append
+    auto vec = forward.find(*l);        // scan fwd[l]->addr[]
+    if ( vec != forward.end()) {        // resolve forwards
+        for (auto addr:vec->secon
+            *((UCELL*)&M[addr]) = a;    // backpatch
+        forward.erase(*l);              // drop from fwd
+    }
+  } else
+      yyerror(l->c_str());      // existing label redefinition
+}
+\end{verbatim}

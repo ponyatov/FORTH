@@ -39,16 +39,19 @@ T += tex/micro/io.tex
 T += tex/object/object.tex
 T += tex/embed/embed.tex tex/embed/bc.tex tex/embed/vm.tex
 T += tex/embed/assembler.tex tex/embed/bluepill.tex
-T += tex/embed/lex.tex tex/embed/yacc.tex
+T += tex/embed/lex.tex tex/embed/yacc.tex tex/embed/labels.tex
 T += tex/embed/emlinux.tex tex/embed/win32.tex
 I += fig/pill103pins.png fig/pill030pins.jpg
+I += fig/backpatch.dot
 C += src/vm.c src/asm.cpp
 H += src/vm.h src/asm.hpp src/config.h
 S += src/asm.lex src/asm.yacc
 C += src/Linux.c src/win32.c src/cortex.c
 H += src/Linux.h src/win32.h src/cortex.h
-F += src/empty.4th src/noop.4th src/FORTH.4th
+F += src/empty.4th src/noop.4th src/jumps.4th src/FORTH.4th
 S += $(P) $(C) $(H) $(T) $(I) $(F)
+
+IMG += tmp/backpatch.pdf
 # / <section:obj>
 # \ <section:all>
 all: $(PY) $(MODULE).py
@@ -56,7 +59,7 @@ all: $(PY) $(MODULE).py
 repl: $(PY) $(MODULE).py
 	$^ $@
 
-bc: bin/vm tmp/FORTH.bc
+bc: bin/vm tmp/jumps.bc
 	$^
 
 tmp/%.bc: src/%.4th bin/asm 
@@ -78,16 +81,21 @@ tmp/parser.cpp: src/asm.yacc
 tex: doc/$(MODULE).pdf
 doc/$(MODULE).pdf: $(TMP)/main.pdf
 	cp $< $@
-$(TMP)/main.pdf: $(T)
+$(TMP)/main.pdf: $(T) $(I) $(IMG)
 	$(LATEX) $< && $(LATEX) $<
 pdf: $(TMP)/$(MODULE)_$(NOW).pdf
 $(TMP)/$(MODULE)_$(NOW).pdf: $(TMP)/main.pdf
-	ghostscript \
-		-sDEVICE=pdfwrite \
-		-dMaxSubsetPct=100 \
-		-dPDFSETTINGS=/ebook \
-		-dNOPAUSE -dBATCH \
-		-sOutputFile=$@ $<
+	cp $< $@
+# ghostscript \
+# 	-sDEVICE=pdfwrite \
+# 	-dMaxSubsetPct=100 \
+# 	-dPDFSETTINGS=/ebook \
+# 	-dNOPAUSE -dBATCH \
+# 	-sOutputFile=$@ $<
+
+tmp/%.pdf: fig/%.dot Makefile
+	dot -Tpdf -o $@.tmp $< && pdfcrop $@.tmp $@
+
 # / <section:tex>
 # \ <section:install>
 .PHONY: install

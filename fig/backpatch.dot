@@ -1,0 +1,17 @@
+digraph {
+    rankdir=LR;
+
+    CL [label="CL()",shape=box]
+    LL [label="LL()",shape=box]
+    labels [label="labels{}"]
+    forward [label="forward{}"]
+
+    labels -> CL [label="get backref\n(known label)"]
+    CL -> forward [label="append forward\n(command addr)"]
+    LL -> labels [label="every new label"]
+    forward -> LL [label="backpatch over command list"]
+    LL -> forward [label="remove"]
+    forward -> labels [label="label\nmove",style=dotted]
+
+    {rank=same; CL; LL; }
+}

@@ -43,10 +43,9 @@
     "**/.lsp": true,
 },
 "files.associations": {
-    /* \ <section:assoc> */
     "**/*.py": "python",
     "requirements.*": "config",
-    /* / <section:assoc> */
+    "**/*.4th": "forth",
 },
 "editor.tabSize": 4,
 "workbench.tree.indent": "32",
