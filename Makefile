@@ -54,6 +54,7 @@ H += src/linux.h src/win32.h src/cortex.h
 C += src/sdl.c
 H += src/sdl.h
 F += src/empty.4th src/noop.4th src/jumps.4th src/FORTH.4th
+F += src/game/hello.4th
 S += $(P) $(C) $(H) $(T) $(I) $(F)
 
 IMG += tmp/backpatch.pdf
