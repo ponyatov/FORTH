@@ -1,4 +1,4 @@
-#include "asm.hpp"
+#include "src/asm.hpp"
 
 #ifdef ASM
 int main(int argc, char *argv[]) {

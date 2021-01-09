@@ -1,6 +1,6 @@
 # \ <section:var>
 MODULE     = $(notdir $(CURDIR))
-OS        ?= $(shell uname -s)
+OS        ?= $(shell uname -s | tr A-Z a-z)
 NOW        = $(shell date +%d%m%y)
 REL        = $(shell git rev-parse --short=4 HEAD)
 # / <section:var>
@@ -26,7 +26,7 @@ HEX        = hexdump -C
 # / <section:tool>
 # \ <section:cfg>
 CFLAGS += -O0 -g3
-CFLAGS += -I$(CWD) -I$(SRC)
+CFLAGS += -I.
 # / <section:cfg>
 # \ <section:obj>
 P += $(MODULE).py
@@ -41,18 +41,27 @@ T += tex/embed/embed.tex tex/embed/bc.tex tex/embed/vm.tex
 T += tex/embed/assembler.tex tex/embed/bluepill.tex
 T += tex/embed/lex.tex tex/embed/yacc.tex tex/embed/labels.tex
 T += tex/embed/emlinux.tex tex/embed/win32.tex
+T += tex/embed/mtask.tex tex/embed/mpu.tex
 I += fig/pill103pins.png fig/pill030pins.jpg
 I += fig/backpatch.dot
+T += tex/iot/iot.tex
 T += tex/game/game.tex tex/game/sdl.tex
 C += src/vm.c src/asm.cpp
 H += src/vm.h src/asm.hpp src/config.h
 S += src/asm.lex src/asm.yacc
-C += src/Linux.c src/win32.c src/cortex.c
-H += src/Linux.h src/win32.h src/cortex.h
+C += src/linux.c src/win32.c src/cortex.c
+H += src/linux.h src/win32.h src/cortex.h
+C += src/sdl.c
+H += src/sdl.h
 F += src/empty.4th src/noop.4th src/jumps.4th src/FORTH.4th
 S += $(P) $(C) $(H) $(T) $(I) $(F)
 
 IMG += tmp/backpatch.pdf
+
+ifeq ($(OS),linux)
+L += src/sdl.c $(shell sdl-config --libs)
+CFLAGS += $(shell sdl-config --cflags)
+endif
 # / <section:obj>
 # \ <section:all>
 all: $(PY) $(MODULE).py
@@ -60,17 +69,19 @@ all: $(PY) $(MODULE).py
 repl: $(PY) $(MODULE).py
 	$^ $@
 
-bc: bin/vm tmp/jumps.bc
+bc: bin/vm tmp/hello.bc
 	$^
 
-tmp/%.bc: src/%.4th bin/asm 
+tmp/%.bc: src/%.4th bin/asm
+	bin/asm $@ < $< && $(HEX) $@
+tmp/%.bc: src/game/%.4th bin/asm
 	bin/asm $@ < $< && $(HEX) $@
 
 bin/vm: $(C) $(H)
-	$(TCC) $(CFLAGS) -D$(OS) -DVM  -o $@ src/vm.c src/$(OS).c
+	$(TCC) $(CFLAGS) -D$(OS) -DVM  -o $@ src/vm.c src/$(OS).c $(L)
 bin/asm: $(C) $(H) tmp/lexer.cpp tmp/parser.cpp
-	$(CXX) $(CFLAGS) -D$(OS) -DASM -o $@ src/vm.c src/$(OS).c \
-		src/asm.cpp tmp/lexer.cpp tmp/parser.cpp
+	$(CXX) $(CFLAGS) -D$(OS) -DASM -o $@ src/vm.c \
+			src/asm.cpp tmp/lexer.cpp tmp/parser.cpp
 
 tmp/lexer.cpp: src/asm.lex
 	flex -o $@ $<
