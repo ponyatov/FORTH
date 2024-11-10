@@ -3,11 +3,11 @@ PROJECT_BRIEF          = "CLI/REPL system for 32bit MCUs"
 PROJECT_LOGO           = vscode/FORTH.png
 HTML_OUTPUT            = doc/html
 OUTPUT_DIRECTORY       =
-INPUT                  = doc/FORTH.md inc src doc
+INPUT                  = README.md inc src doc
 EXCLUDE                = ref/* *.pdf *.djvu
 WARN_IF_UNDOCUMENTED   = NO
 RECURSIVE              = YES
-USE_MDFILE_AS_MAINPAGE = doc/FORTH.md
+USE_MDFILE_AS_MAINPAGE = README.md
 GENERATE_LATEX         = NO
 FILE_PATTERNS         += *.lex *.yacc
 EXTENSION_MAPPING      = lex=C++ yacc=C++ ino=C++

@@ -1,5 +1,3 @@
-# use Espruino hacked libs
-ETARGET = stm32f4
 include arch/CortexM.mk
 
 REF += ref/STM32CubeF4/README.md

@@ -1,5 +1,9 @@
 # {#STM32}
 
+## {#STM32F1}
+
+- https://github.com/STMicroelectronics/STM32CubeF1
+
 ## {#STM32F4}
 
 - https://github.com/STMicroelectronics/STM32CubeF4
