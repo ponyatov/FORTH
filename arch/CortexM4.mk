@@ -1,4 +1,5 @@
 include arch/CortexM.mk
+TCFLAGS += -march=armv7-m -mthumb
 
 REF += ref/STM32CubeF4/README.md
 ref/STM32CubeF4/README.md:

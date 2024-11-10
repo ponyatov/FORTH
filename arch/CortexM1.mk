@@ -1,4 +1,5 @@
 include arch/CortexM.mk
+TCFLAGS += -march=armv7-m -mthumb
 
 STM32CubeF1_VER = 1.8.6
 STM32CubeF1_GZ  = STM32CubeF1_$(STM32CubeF1_VER).zip
