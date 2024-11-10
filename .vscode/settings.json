@@ -27,22 +27,9 @@
         "ref/**": true,
     },
     "files.associations": {
-        "lib/*.ini": "javascript",
-        "lib/.boot*": "javascript",
+        "lib/*.ini": "forth", "lib/.f": "forth",
         ".doxygen": "ini",
-        "*.make": "makefile",
-        "*.tcc": "cpp",
-        "optional": "cpp",
-        "ratio": "cpp",
-        "system_error": "cpp",
-        "array": "cpp",
-        "functional": "cpp",
-        "regex": "cpp",
-        "tuple": "cpp",
-        "type_traits": "cpp",
-        "utility": "cpp",
-        "expected": "cpp",
-        "variant": "cpp"
+        "*.mk": "makefile", "tmp/hw.info": "makefile"
     },
 
     // editor
