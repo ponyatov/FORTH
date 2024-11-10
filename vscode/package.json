@@ -1,0 +1,85 @@
+{
+    "name":        "boss",
+    "displayName": "Bytecode OS/Script",
+    "description": "bytecode compiler & portable runtime",
+    "version":     "0.0.1",
+    "icon":        "logo.png",
+    "publisher":   "dponyatov",
+    "license":     "MIT",
+    "engines": {
+        "vscode": "^1.75.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "keywords": [
+        "CLI", "FORTH", "REPL", "OS", "script", "interpreter"
+    ],
+    "bugs": {
+        "url": "https://gitflic.ru/project/dponyatov/boss/issue"
+    },
+    "homepage": "https://gitflic.ru/project/dponyatov/boss",
+    "repository": {
+        "type": "git",
+        "url" : "https://gitflic.ru/project/dponyatov/boss/issue/tree/dponyatov/vscode"
+    },
+    "activationEvents": [
+        "workspaceContains:lib/*.ini",
+        "workspaceContains:lib/*.s"
+    ],
+    "extensionDependencies": [
+    ],
+    "main": "./extension.js",
+    "contributes": {
+        "grammars": [{
+            "language": "boss",
+            "scopeName": "source.boss",
+            "path": "./boss.tmLanguage.json"
+        }],
+        "commands": [
+            {
+                "command": "boss.hello",
+                "title": "boss: Hello World"
+            },
+            {
+                "command": "boss.repl",
+                "title": "boss: REPL"
+            }
+        ],
+        "keybindings": [{
+            "key": "ctrl+enter",
+            "command": "boss.repl",
+            "when": "editorTextFocus && editorLangId == 'boss'"
+        }],
+        "languages": [{
+            "id": "boss",
+            "extensions": [".ini", ".s"],
+            "configuration": "./boss.languageConfiguration.json"
+        }],
+        "configuration": {
+            "title": "boss",
+            "properties": {
+                "boss.Path": {
+                    "type": "string",
+                    "default": "${workspaceFolder}",
+                    "description": "%ext.configuration.Path%"
+                }}
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "make extension",
+        "watch": "tsc -watch -p ./",
+        "pretest": "npm run compile && npm run lint",
+        "package": "vsce package --baseImagesUrl https://gitflic.ru/project/dponyatov/boss/issue/tree/dponyatov/vscode/",
+        "lint": "eslint src --ext ts",
+        "test": "vscode-test"
+    },
+    "dependencies": {
+        "vscode-nls": "^5.2.0"
+    },
+    "devDependencies": {
+        "vscode-nls-dev": "^4.0.4",
+        "vscode": "1.1.x"
+    }
+}

@@ -1,0 +1,18 @@
+PROJECT_NAME           = "FORTH"
+PROJECT_BRIEF          = "CLI/REPL system for 32bit MCUs"
+PROJECT_LOGO           = vscode/FORTH.png
+HTML_OUTPUT            = doc/html
+OUTPUT_DIRECTORY       =
+INPUT                  = doc/FORTH.md inc src doc
+EXCLUDE                = ref/* *.pdf *.djvu
+WARN_IF_UNDOCUMENTED   = NO
+RECURSIVE              = YES
+USE_MDFILE_AS_MAINPAGE = doc/FORTH.md
+GENERATE_LATEX         = NO
+FILE_PATTERNS         += *.lex *.yacc
+EXTENSION_MAPPING      = lex=C++ yacc=C++ ino=C++
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = YES
+LAYOUT_FILE            = doc/DoxygenLayout.xml
+SORT_GROUP_NAMES       = YES
+REPEAT_BRIEF           = NO

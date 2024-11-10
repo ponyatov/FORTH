@@ -1,0 +1,4 @@
+git make curl
+clang-format
+gcc-arm-none-eabi gdb-multiarch stlink-tools ragel
+minicom

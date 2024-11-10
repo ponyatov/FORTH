@@ -1,0 +1,93 @@
+{
+    "version": "0.0.1",
+    "scopeName": "source.boss",
+    "fileTypes": [".ini", ".s"],
+    "information_for_contributors": [
+        "CLI/BOSS"
+    ],
+    "patterns": [
+        {"include": "#comment"},
+        {"include": "#keyword"},
+        {"include": "#type"},
+        {"include": "#var"},
+        {"include": "#expression"},
+        {"include": "#label"}
+    ],
+    "repository": {
+        "comment": {
+            "name": "comment.line.boss",
+            "match": "\\s*((#).*)$"
+        },
+        "keyword": {
+            "name": "keyword.control.boss",
+            "match": "\\b(nop|halt)\\b"
+        },
+        "type": {
+            "name": "constant.language.boss",
+            "match": "\\b(char|int)\\b"
+        },
+        "var": {
+            "name": "storage.type.boss",
+            "match": "\\b(let)\\b"
+        },
+        "string": {
+            "name": "string.quoted.double.boss",
+            "begin": "\"",
+            "beginCaptures": {
+                "0": {"name": "punctuation.definition.string.begin.boss"}
+            },
+            "end": "\"",
+            "endCaptures": {
+                "0": {"name": "punctuation.definition.string.end.boss"}
+            },
+            "patterns": [
+                {"include": "#string_escaped_char"}
+            ]
+        },
+        "string_escaped_char": {
+            "patterns": [
+                {
+                    "match": "(?x)\\\\ (\n\\\\\t\t\t |\n[abefnprtv'\"?]   |\n[0-3]\\d{,2}\t |\n[4-7]\\d?\t\t|\nx[a-fA-F0-9]{,2} |\nu[a-fA-F0-9]{,4} |\nU[a-fA-F0-9]{,8} )",
+                    "name": "constant.character.escape.boss"
+                },
+                {
+                    "match": "\\\\.",
+                    "name": "invalid.illegal.unknown-escape.boss"
+                }
+            ]
+        },
+        "expression": {
+            "patterns": [
+                {"include": "#string"},
+                {"include": "#number"},
+                {"include": "#paren-expression"},
+                {"include": "#quad-expression"}
+            ]
+        },
+        "paren-expression": {
+            "name": "expression.group",
+            "begin": "\\(",
+            "end": "\\)",
+            "patterns": [
+                {"include": "#type"},
+                {"include": "#expression"}
+            ]
+        },
+        "quad-expression": {
+            "name": "expression.group",
+            "begin": "\\[",
+            "end": "\\]",
+            "patterns": [
+                {"include": "#number"}
+            ]
+        },
+        "number": {
+            "name": "constant.numeric.boss",
+            "match": "[+-]?(0x[0-9A-Fa-f]+|0b[01]+|[0-9]+)([eE][+-]?[0-9]+)?"
+        },
+        "label": {
+            "name": "variable.other.boss",
+            "match": "^\\s*[a-z]+:"
+        }
+    }
+}
