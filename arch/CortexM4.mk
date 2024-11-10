@@ -26,7 +26,7 @@ ref/stm32f4xx-hal-driver/README.md:
 
 CMSIS    = ref/cmsis-device-f4
 CMSIS_T  = $(CMSIS)/Source/Templates/gcc
-TCFLAGS += -I$(CMSIS_T) -I$(CMSIS)/Include -I
+TCFLAGS += -I$(CMSIS_T) -I$(CMSIS)/Include
 HE      += $(wildcard $(CMSIS)/*.h*)
 
 HAL      = ref/stm32f4xx-hal-driver/Inc
