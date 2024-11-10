@@ -13,8 +13,6 @@
         // misc
         "usernamehw.errorlens",
         // "hbenl.vscode-test-explorer",
-        // JavaScript
-        "lllllllqw.jsdoc",
         // C++
         "ms-vscode.cpptools",
         "jeff-hykin.better-cpp-syntax",
@@ -22,15 +20,10 @@
         // parser
         "daohong-emilio.yash",
         "rreverser.ragel",
-        // Python
-        "ms-python.python",
-        "ms-python.debugpy",
-        "ms-python.autopep8",
+        // embedded
+        "zixuanwang.linkerscript",
         // ESP32
         "espressif.esp-idf-extension",
         "rreverser.ragel",
-        // OCaml
-        "ocamllabs.ocaml-platform",
-        "zepalmer.ocaml-indentation",
     ]
 }
