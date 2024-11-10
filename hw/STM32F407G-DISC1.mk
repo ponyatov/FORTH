@@ -7,3 +7,5 @@ REF     += $(BSP)/README.md
 
 $(BSP)/README.md:
 	$(GITREF) -b main git@github.com:ponyatov/stm32f4discovery-bsp.git $(dir $@)
+
+TCFLAGS += -I$(CUBE)/Projects/STM32F4-Discovery/Demonstrations/Inc

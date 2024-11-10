@@ -1,7 +1,8 @@
 include arch/CortexM.mk
 TCFLAGS += -march=armv7-m -mthumb
 
-REF += ref/STM32CubeF4/README.md
+CUBE = ref/STM32CubeF4
+REF += $(CUBE)/README.md
 ref/STM32CubeF4/README.md:
 	$(GITREF) -o gh -b master --depth 1 https://github.com/STMicroelectronics/STM32CubeF4.git $(dir $@)
 
@@ -23,8 +24,9 @@ REF += ref/stm32f4xx-hal-driver/README.md
 ref/stm32f4xx-hal-driver/README.md:
 	$(GITREF) -o gh git@github.com:ponyatov/stm32f4xx-hal-driver.git $(dir $@)
 
-CMSIS    = ref/cmsis-device-f4/Source/Templates/gcc
-TCFLAGS += -I$(CMSIS)
+CMSIS    = ref/cmsis-device-f4
+CMSIS_T  = $(CMSIS)/Source/Templates/gcc
+TCFLAGS += -I$(CMSIS_T) -I$(CMSIS)/Include
 HE      += $(wildcard $(CMSIS)/*.h*)
 
 HAL      = ref/stm32f4xx-hal-driver/Inc

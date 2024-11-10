@@ -42,7 +42,7 @@ OBJ += $(subst .c,.o,$(subst src/,tmp/,$(C)))
 OBJ += $(subst .c,.o,$(subst $(BSP)/,tmp/,$(CE)))
 
 # cfg
-TCFLAGS += -Iinc -Itmp -O0 -ggdb -std=c99
+TCFLAGS += -Iinc -Itmp -O0 -ggdb -std=gnu99
 TCFLAGS += -DFLASH=$(FLASH) -DSRAM=$(SRAM) -DSERIAL=$(SERIAL)
 TCFLAGS += -DHW=$(HW) -DCPU=$(CPU) -DARCH=$(ARCH)
 
@@ -67,14 +67,10 @@ tmp/%.o: src/%.c $(H) $(HE)
 	$(TCC) $(TCFLAGS) -o $@ -c $<
 	$(TDUMP) -x $@ > $@.dump
 # original/patched STMicro libs
-tmp/%.o: $(CMSIS)/%.s $(H) $(HE)
+tmp/%.o: $(CMSIS_T)/%.s $(H) $(HE)
 	$(TCC) $(TCFLAGS) -o $@ -c $<
 	$(TDUMP) -x $@ > $@.dump
 tmp/%.o: $(BSP)/%.c $(H) $(HE)
-	$(TCC) $(TCFLAGS) -o $@ -c $<
-	$(TDUMP) -x $@ > $@.dump
-# use Espruino hacked libs
-tmp/%.o: $(ELIB)/%.s $(H) $(HE)
 	$(TCC) $(TCFLAGS) -o $@ -c $<
 	$(TDUMP) -x $@ > $@.dump
 
