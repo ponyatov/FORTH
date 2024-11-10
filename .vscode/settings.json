@@ -1,0 +1,102 @@
+{
+    "multiCommand.commands": [
+        { "command": "multiCommand.f11",
+            "sequence": [ "workbench.action.files.saveAll",
+                { "command": "workbench.action.terminal.sendSequence",
+                    "args": {"text": "\u000D clear ; LANG=C make gen \u000D"}}]},
+        { "command": "multiCommand.f12",
+            "sequence": [ "workbench.action.files.saveAll",
+                { "command": "workbench.action.terminal.sendSequence",
+                    "args": {"text": "\u000D clear ; LANG=C make doxy \u000D"}}]},
+        { "command": "multiCommand.altx",
+            "sequence": [ "workbench.action.files.saveAll",
+                { "command": "workbench.action.terminal.sendSequence",
+                    "args": {"text": "\u000D clear ; LANG=C make FORTH \u000D"}}]},
+        { "command": "multiCommand.alts",
+            "sequence": [ "workbench.action.files.saveAll",
+                { "command": "workbench.action.terminal.sendSequence",
+                    "args": {"text": "\u000D clear ; LANG=C make format \u000D"}}]},
+    ],
+
+    // files
+    "files.exclude": {
+        "docs/**": true,
+        "_build/**": true,
+    },
+    "files.watcherExclude": {
+        "ref/**": true,
+    },
+    "files.associations": {
+        "lib/*.ini": "javascript",
+        "lib/.boot*": "javascript",
+        ".doxygen": "ini",
+        "*.make": "makefile",
+        "*.tcc": "cpp",
+        "optional": "cpp",
+        "ratio": "cpp",
+        "system_error": "cpp",
+        "array": "cpp",
+        "functional": "cpp",
+        "regex": "cpp",
+        "tuple": "cpp",
+        "type_traits": "cpp",
+        "utility": "cpp",
+        "expected": "cpp",
+        "variant": "cpp"
+    },
+
+    // editor
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+    "editor.rulers": [80],
+    "workbench.tree.indent": 24,
+    "editor.fontSize": 14,
+    "editor.lineNumbers": "on",
+    "explorer.autoReveal": false,
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "git.enabled": false,
+    "terminal.integrated.copyOnSelection": true,
+    // "editor.inlayHints.enabled": "offUnlessPressed",
+
+    // C++
+    "[cpp]": {
+        "editor.defaultFormatter": "xaver.clang-format",
+        "editor.formatOnSave":     false
+    },
+    "C_Cpp.intelliSenseEngine": "Tag Parser",
+
+    // cmake
+    "cmake.configureSettings": {
+        "APP": "${workspaceFolderBasename}",
+        "PYTHON_DEPS_CHECKE": 1,
+        "PYTHON": "python3",
+        "ESP_PLATFORM": 1,
+        "CCACHE_ENABLE": 0
+    },
+    "cmake.sourceDirectory"  : "${workspaceFolder}",
+    "cmake.buildDirectory"   : "${workspaceFolder}/tmp/build",
+	"cmake.generator"        : "Ninja", // Unix Makefiles",
+    "cmake.configureOnOpen"  : false,
+    "cmake.debugConfig"      : {
+        "cwd": "${workspaceFolder}",
+		"args": [
+"${workspaceFolder}/lib/${workspaceFolderBasename}.ini"
+        ]},
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+
+    // ESP32
+    "idf.adapterTargetName": "esp32",
+    "idf.pythonBinPath": "${env:IDF_PYTHON_ENV_PATH}/bin/python3",
+    "idf.buildPath": "${workspaceFolder}/tmp/build",
+    "idf.port": "/dev/ttyUSB0",
+    "idf.flashType": "UART",
+    "idf.flashBaudRate": "1000000",
+
+    // OCaml
+    "[ocaml]": {
+        "editor.tabSize": 2,
+        "editor.formatOnSave": true
+    },
+}

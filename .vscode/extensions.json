@@ -1,0 +1,36 @@
+{
+    "recommendations": [
+        "stkb.rewrap",
+        "ryuta46.multi-command",
+        "tabnine.tabnine-vscode",
+        "ms-vscode.makefile-tools",
+        // Linux
+        "ms-vscode-remote.remote-ssh",
+        "coolbear.systemd-unit-file",
+        // formatters
+        "xaver.clang-format",
+        "foxundermoon.shell-format",
+        // misc
+        "usernamehw.errorlens",
+        // "hbenl.vscode-test-explorer",
+        // JavaScript
+        "lllllllqw.jsdoc",
+        // C++
+        "ms-vscode.cpptools",
+        "jeff-hykin.better-cpp-syntax",
+        "ms-vscode.cmake-tools",
+        // parser
+        "daohong-emilio.yash",
+        "rreverser.ragel",
+        // Python
+        "ms-python.python",
+        "ms-python.debugpy",
+        "ms-python.autopep8",
+        // ESP32
+        "espressif.esp-idf-extension",
+        "rreverser.ragel",
+        // OCaml
+        "ocamllabs.ocaml-platform",
+        "zepalmer.ocaml-indentation",
+    ]
+}
