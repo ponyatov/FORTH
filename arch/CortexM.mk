@@ -7,3 +7,6 @@ ref/stm32-bsp-common/README.md:
 REF += ref/cmsis-core/README.md
 ref/cmsis-core/README.md:
 	$(GITREF) -o gh -b master git@github.com:ponyatov/cmsis-core.git $(dir $@)
+
+CMSIS_C  = ref/cmsis-core
+TCFLAGS += -I$(CMSIS_C)/Include

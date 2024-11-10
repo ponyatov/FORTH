@@ -1,5 +1,5 @@
 include arch/CortexM.mk
-TCFLAGS += -march=armv7-m -mthumb
+TCFLAGS += -mthumb -mcpu=cortex-m4
 
 CUBE = ref/STM32CubeF4
 REF += $(CUBE)/README.md
@@ -26,7 +26,7 @@ ref/stm32f4xx-hal-driver/README.md:
 
 CMSIS    = ref/cmsis-device-f4
 CMSIS_T  = $(CMSIS)/Source/Templates/gcc
-TCFLAGS += -I$(CMSIS_T) -I$(CMSIS)/Include
+TCFLAGS += -I$(CMSIS_T) -I$(CMSIS)/Include -I
 HE      += $(wildcard $(CMSIS)/*.h*)
 
 HAL      = ref/stm32f4xx-hal-driver/Inc

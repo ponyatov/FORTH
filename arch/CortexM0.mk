@@ -1,5 +1,5 @@
 include arch/CortexM.mk
-TCFLAGS += -march=armv6-m -mthumb
+TCFLAGS += -mthumb -mcpu=cortex-m0
 
 STM32CubeF0_VER = 1.11.5
 STM32CubeF0_GZ  = STM32CubeF0_$(STM32CubeF0_VER).zip
