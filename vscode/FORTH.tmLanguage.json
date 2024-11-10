@@ -1,9 +1,9 @@
 {
     "version": "0.0.1",
-    "scopeName": "source.boss",
+    "scopeName": "source.forth",
     "fileTypes": [".ini", ".s"],
     "information_for_contributors": [
-        "CLI/BOSS"
+        "CLI/REPL/FORTH"
     ],
     "patterns": [
         {"include": "#comment"},
@@ -15,30 +15,30 @@
     ],
     "repository": {
         "comment": {
-            "name": "comment.line.boss",
+            "name": "comment.line.forth",
             "match": "\\s*((#).*)$"
         },
         "keyword": {
-            "name": "keyword.control.boss",
+            "name": "keyword.control.forth",
             "match": "\\b(nop|halt)\\b"
         },
         "type": {
-            "name": "constant.language.boss",
+            "name": "constant.language.forth",
             "match": "\\b(char|int)\\b"
         },
         "var": {
-            "name": "storage.type.boss",
+            "name": "storage.type.forth",
             "match": "\\b(let)\\b"
         },
         "string": {
-            "name": "string.quoted.double.boss",
+            "name": "string.quoted.double.forth",
             "begin": "\"",
             "beginCaptures": {
-                "0": {"name": "punctuation.definition.string.begin.boss"}
+                "0": {"name": "punctuation.definition.string.begin.forth"}
             },
             "end": "\"",
             "endCaptures": {
-                "0": {"name": "punctuation.definition.string.end.boss"}
+                "0": {"name": "punctuation.definition.string.end.forth"}
             },
             "patterns": [
                 {"include": "#string_escaped_char"}
@@ -48,11 +48,11 @@
             "patterns": [
                 {
                     "match": "(?x)\\\\ (\n\\\\\t\t\t |\n[abefnprtv'\"?]   |\n[0-3]\\d{,2}\t |\n[4-7]\\d?\t\t|\nx[a-fA-F0-9]{,2} |\nu[a-fA-F0-9]{,4} |\nU[a-fA-F0-9]{,8} )",
-                    "name": "constant.character.escape.boss"
+                    "name": "constant.character.escape.forth"
                 },
                 {
                     "match": "\\\\.",
-                    "name": "invalid.illegal.unknown-escape.boss"
+                    "name": "invalid.illegal.unknown-escape.forth"
                 }
             ]
         },
@@ -82,11 +82,11 @@
             ]
         },
         "number": {
-            "name": "constant.numeric.boss",
+            "name": "constant.numeric.forth",
             "match": "[+-]?(0x[0-9A-Fa-f]+|0b[01]+|[0-9]+)([eE][+-]?[0-9]+)?"
         },
         "label": {
-            "name": "variable.other.boss",
+            "name": "variable.other.forth",
             "match": "^\\s*[a-z]+:"
         }
     }
