@@ -1,9 +1,9 @@
 {
-    "name":        "boss",
-    "displayName": "Bytecode OS/Script",
-    "description": "bytecode compiler & portable runtime",
+    "name":        "forth",
+    "displayName": "FORTH/MCU",
+    "description": "CLI/REPL system for 32bit MCUs",
     "version":     "0.0.1",
-    "icon":        "logo.png",
+    "icon":        "FORTH.png",
     "publisher":   "dponyatov",
     "license":     "MIT",
     "engines": {
@@ -13,15 +13,15 @@
         "Programming Languages"
     ],
     "keywords": [
-        "CLI", "FORTH", "REPL", "OS", "script", "interpreter"
+        "CLI", "FORTH", "REPL", "OS", "script", "interpreter", "embedded", "MCU"
     ],
     "bugs": {
-        "url": "https://gitflic.ru/project/dponyatov/boss/issue"
+        "url": "https://gitflic.ru/project/dponyatov/forth/issue"
     },
-    "homepage": "https://gitflic.ru/project/dponyatov/boss",
+    "homepage": "https://gitflic.ru/project/dponyatov/forth",
     "repository": {
         "type": "git",
-        "url" : "https://gitflic.ru/project/dponyatov/boss/issue/tree/dponyatov/vscode"
+        "url" : "https://gitflic.ru/project/dponyatov/forth/issue/tree/dponyatov/vscode"
     },
     "activationEvents": [
         "workspaceContains:lib/*.ini",
@@ -32,34 +32,34 @@
     "main": "./extension.js",
     "contributes": {
         "grammars": [{
-            "language": "boss",
-            "scopeName": "source.boss",
-            "path": "./boss.tmLanguage.json"
+            "language": "forth",
+            "scopeName": "source.forth",
+            "path": "./FORTH.tmLanguage.json"
         }],
         "commands": [
             {
-                "command": "boss.hello",
-                "title": "boss: Hello World"
+                "command": "forth.hello",
+                "title": "FORTH: Hello World"
             },
             {
-                "command": "boss.repl",
-                "title": "boss: REPL"
+                "command": "forth.repl",
+                "title": "FORTH: REPL"
             }
         ],
         "keybindings": [{
             "key": "ctrl+enter",
-            "command": "boss.repl",
-            "when": "editorTextFocus && editorLangId == 'boss'"
+            "command": "forth.repl",
+            "when": "editorTextFocus && editorLangId == 'forth'"
         }],
         "languages": [{
-            "id": "boss",
+            "id": "forth",
             "extensions": [".ini", ".s"],
-            "configuration": "./boss.languageConfiguration.json"
+            "configuration": "./FORTH.languageConfiguration.json"
         }],
         "configuration": {
-            "title": "boss",
+            "title": "forth",
             "properties": {
-                "boss.Path": {
+                "forth.Path": {
                     "type": "string",
                     "default": "${workspaceFolder}",
                     "description": "%ext.configuration.Path%"
@@ -71,7 +71,7 @@
         "compile": "make extension",
         "watch": "tsc -watch -p ./",
         "pretest": "npm run compile && npm run lint",
-        "package": "vsce package --baseImagesUrl https://gitflic.ru/project/dponyatov/boss/issue/tree/dponyatov/vscode/",
+        "package": "vsce package --baseImagesUrl https://gitflic.ru/project/dponyatov/forth/issue/tree/dponyatov/vscode/",
         "lint": "eslint src --ext ts",
         "test": "vscode-test"
     },

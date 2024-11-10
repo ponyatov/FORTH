@@ -1,4 +1,4 @@
-PROJECT_NAME           = "FORTH"
+PROJECT_NAME           = "FORTH/MCU"
 PROJECT_BRIEF          = "CLI/REPL system for 32bit MCUs"
 PROJECT_LOGO           = vscode/FORTH.png
 HTML_OUTPUT            = doc/html
