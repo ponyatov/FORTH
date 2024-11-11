@@ -10,3 +10,5 @@ ref/cmsis-core/README.md:
 
 CMSIS_C  = ref/cmsis-core
 TCFLAGS += -I$(CMSIS_C)/Include
+
+TCFLAGS += -Iref/Components
