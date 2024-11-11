@@ -36,11 +36,11 @@ TCC    = $(TARGET)-gcc
 TDUMP  = $(TARGET)-objdump
 
 # src
-C += $(wildcard src/*.c*)
+C += $(wildcard src/*.c*) $(wildcard src/$(ARCH)/*.c*)
 H += $(wildcard inc/*.h*)
+F += $(wildcard lib/*.f)
 
-OBJ += $(subst .c,.o,$(subst src/,tmp/,$(C)))
-OBJ += $(subst .c,.o,$(subst $(BSP)/,tmp/,$(CE)))
+OBJ += tmp/FORTH.o tmp/main.o
 
 # cfg
 TCFLAGS += -Iinc -Itmp -O0 -ggdb -std=gnu99
@@ -49,9 +49,9 @@ TCFLAGS += -DHW=$(HW) -DCPU=$(CPU) -DARCH=$(ARCH)
 
 # all
 .PHONY: all FORTH
-all: bin/$(MODULE).elf
-	$^
-FORTH: all
+all:   bin/$(MODULE)_$(ARCH).elf
+FORTH: bin/$(MODULE)_$(ARCH).elf
+	$(RUN)
 
 # format
 .PHONY: format
@@ -60,14 +60,21 @@ format: /tmp/format_cpp
 	$(CF) $? && touch $@
 
 # rule
-bin/$(MODULE).elf: $(OBJ)
+bin/$(MODULE)_$(ARCH).elf: $(OBJ)
 	$(TCC) $(TCFLAGS) -o $@ $^
 	$(TDUMP) -x $@ > $@.dump
-	$(TCOPY) -O binary $@ $(subst .bin,.bin,$@)
-	$(TCOPY) -O ihex   $@ $(subst .bin,.hex,$@)
+	$(TCOPY) -O binary $@ $@.bin
+	$(TCOPY) -O ihex   $@ $@.hex
+tmp/%.o: src/$(ARCH)/%.c $(H) $(HE)
+	$(TCC) $(TCFLAGS) -o $@ -c $<
+	$(TDUMP) -x $@ > $@.dump
 tmp/%.o: src/%.c $(H) $(HE)
 	$(TCC) $(TCFLAGS) -o $@ -c $<
 	$(TDUMP) -x $@ > $@.dump
+tmp/%.o: tmp/%.c $(H) $(HE)
+	$(TCC) $(TCFLAGS) -o $@ -c $<
+	$(TDUMP) -x $@ > $@.dump
+
 # original/patched STMicro libs
 tmp/%.o: $(CMSIS_T)/%.s $(H) $(HE)
 	$(TCC) $(TCFLAGS) -o $@ -c $<
@@ -75,6 +82,12 @@ tmp/%.o: $(CMSIS_T)/%.s $(H) $(HE)
 tmp/%.o: $(BSP)/%.c $(H) $(HE)
 	$(TCC) $(TCFLAGS) -o $@ -c $<
 	$(TDUMP) -x $@ > $@.dump
+
+# parser
+tmp/%.lexer.c: src/$(ARCH)/%.lex
+	flex -o $@ $<
+tmp/%.parser.c: src/$(ARCH)/%.yacc
+	bison -o $@ $<
 
 # doc
 .PHONY: doxy
