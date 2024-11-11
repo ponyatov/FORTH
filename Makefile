@@ -10,14 +10,15 @@ ifneq (,$(wildcard $(HWINFO)))
 	include  cpu/$(CPU).mk
 	include arch/$(ARCH).mk
 else
-$(HWINFO): install
+.PHONY: info
+info: $(HWINFO)
+$(HWINFO):
 	echo "STVER  = $(shell st-info --version)"  > $@
 	echo "FLASH  = $(shell st-info --flash  )" >> $@
 	echo "SRAM   = $(shell st-info --sram   )" >> $@
 	echo "SERIAL = $(shell st-info --serial )" >> $@
 	echo "CHIPID = $(shell st-info --chipid )" >> $@
 	echo "DESCR  = $(shell st-info --descr  )" >> $@
-	$(MAKE) ref
 endif
 
 # dir

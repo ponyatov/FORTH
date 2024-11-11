@@ -22,9 +22,9 @@ bin     [01]
 [ \t\r\n]+      {}                  // drop spaces
 
 "\""            { BEGIN(str);        sp  = 0; }
+<str>.          { sx[sp++] = yytext[0]; assert(sp<sizeof(sx));}
 <str>"\""       { BEGIN(INITIAL); sx[sp] = 0;
                   yylval.s = sx; return STR;  }
-<str>.          { sx[sp++] = yytext[0]; assert(sp<sizeof(sx));}
 
 {sign}?{dec}+   { yylval.n = strtol( yytext   ,NULL,0x0A); return INT; }
 "0x"{hex}+      { yylval.n = strtol(&yytext[2],NULL,0x10); return INT; }
