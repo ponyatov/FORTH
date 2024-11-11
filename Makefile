@@ -17,6 +17,7 @@ $(HWINFO): install
 	echo "SERIAL = $(shell st-info --serial )" >> $@
 	echo "CHIPID = $(shell st-info --chipid )" >> $@
 	echo "DESCR  = $(shell st-info --descr  )" >> $@
+	$(MAKE) ref
 endif
 
 # dir
