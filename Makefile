@@ -50,6 +50,7 @@ TCFLAGS += -DHW=$(HW) -DCPU=$(CPU) -DARCH=$(ARCH)
 # all
 .PHONY: all FORTH
 all: bin/$(MODULE).elf
+	$^
 FORTH: all
 
 # format
