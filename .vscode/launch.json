@@ -8,6 +8,7 @@
         {
             "name": "Run Extension",
             "type": "extensionHost",
+            "preLaunchTask": "Build",
             "request": "launch",
             "args": [
                 "--extensionDevelopmentPath=${workspaceFolder}"

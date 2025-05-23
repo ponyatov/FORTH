@@ -3,7 +3,7 @@
     "languages": [{
         "id": "forth",
         "grammar": "src/language/forth.langium",
-        "fileExtensions": [".f"],
+        "fileExtensions": [".f",".ini"],
         "textMate": {
             "out": "syntaxes/forth.tmLanguage.json"
         },

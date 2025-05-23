@@ -4,7 +4,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build forth",
+            "label": "Build",
             "command": "npm run langium:generate && npm run build",
             "type": "shell",
             "group": {
