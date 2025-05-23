@@ -1,0 +1,15 @@
+{
+    "projectName": "Forth",
+    "languages": [{
+        "id": "forth",
+        "grammar": "src/language/forth.langium",
+        "fileExtensions": [".f"],
+        "textMate": {
+            "out": "syntaxes/forth.tmLanguage.json"
+        },
+        "monarch": {
+            "out": "src/syntaxes/forth.monarch.ts"
+        }
+    }],
+    "out": "src/language/generated"
+}
