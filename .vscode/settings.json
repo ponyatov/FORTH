@@ -1,0 +1,49 @@
+{
+    // files
+    "files.exclude": {
+        "doc/html": true,
+        "node_modules": true,
+    },
+    "files.watcherExclude": {
+        "ref/**": true, "target/**": true, "obj/**": true,
+    },
+    "files.associations": {
+        "*.f": "forth", "*.mk": "makefile",
+    },
+
+    // editor
+    "files.eol": "\n",
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+    "editor.rulers": [80],
+    "editor.lineNumbers": "on",
+    "workbench.tree.indent": 24,
+    "editor.fontSize": 14,
+    "explorer.autoReveal": false,
+    "git.enabled": false,
+    "terminal.integrated.copyOnSelection": true,
+
+    // JavaScript
+    "prettier.configPath"         : ".prettierrc",
+    "prettier.requireConfig"      :  true,
+    "json.format.enable"          :  true,
+
+    // clang-format
+    "clang-format.executable"     : "clang-format",
+    "clang-format.fallbackStyle"  : "Google",
+    "clang-format.style"          : "file",
+
+    // MinGW/MSYS2
+    "terminal.integrated.defaultProfile.windows": "UCRT64",
+    "terminal.integrated.profiles.windows": {
+      "UCRT64": {
+        "path": "C:\\msys64\\usr\\bin\\bash.exe",
+        "args": ["--login","-i"],
+        "env": {
+          "MSYSTEM": "UCRT64",
+          "CHERE_INVOKING": "1",
+        }}},
+}

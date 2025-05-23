@@ -1,6 +1,6 @@
 {
     "name": "forth",
-    "description": "Please enter a brief description here",
+    "description": "FORTH extension using Langium",
     "version": "0.0.1",
     "files": [
         "bin",
