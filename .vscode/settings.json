@@ -1,14 +1,18 @@
 {
     // files
     "files.exclude": {
-        "doc/html": true,
-        "node_modules": true,
+        "doc/html": true, "node_modules": true,
     },
     "files.watcherExclude": {
         "ref/**": true, "target/**": true, "obj/**": true,
     },
     "files.associations": {
-        "*.f": "forth", "*.mk": "makefile",
+        "*.f": "forth", "*.ini": "forth", "*.mk": "makefile",
+        "*.ld*": "linkerscript", "*.s": "arm", "memory.x": "linkerscript",
+        "*.ocd": "properties", "*.gdb": "properties",
+        "*.ioc": "properties", "*.config": "properties",
+        "*.kernel": "properties",
+        "*.service": "systemd-unit-file",
     },
 
     // editor
@@ -30,11 +34,49 @@
     "prettier.configPath"         : ".prettierrc",
     "prettier.requireConfig"      :  true,
     "json.format.enable"          :  true,
+    "[javascript]": {
+        "editor.defaultFormatter" : "esbenp.prettier-vscode",
+        "editor.formatOnSave"     :  false
+    },
+    "[json]": {
+        "editor.defaultFormatter" : "esbenp.prettier-vscode",
+        "editor.formatOnSave"     :  false
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter" : "esbenp.prettier-vscode",
+        "editor.formatOnSave"     :  false
+    },
 
     // clang-format
     "clang-format.executable"     : "clang-format",
     "clang-format.fallbackStyle"  : "Google",
     "clang-format.style"          : "file",
+
+    // C++
+    "[c]": {
+        "editor.defaultFormatter" : "xaver.clang-format",
+        "editor.formatOnSave"     :  false
+    },
+    "[cpp]": {
+        "editor.defaultFormatter" : "xaver.clang-format",
+        "editor.formatOnSave"     :  false
+    },
+    // "C_Cpp.intelliSenseEngine": "Tag Parser",
+    // "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+
+    // CMake
+    "cmake.sourceDirectory" : "${workspaceFolder}",
+    "cmake.buildDirectory"  : "${workspaceFolder}/tmp/${workspaceFolderBasename}",
+    "cmake.generator"       : "Unix Makefiles",
+    "cmake.parallelJobs"    :  2,
+    "cmake.useCMakePresets" : "always",
+    "cmake.ignoreCMakeListsMissing" : false,
+    "cmake.buildBeforeRun"  :  true,
+    "cmake.saveBeforeBuild" :  true,
+    "cmake.debugConfig"     : {
+        "cwd" :   "${workspaceFolder}",
+        "args": [ "lib/${workspaceFolderBasename}.ini" ] },
+    "cmake.allowCommentsInPresetsFile" : true,
 
     // MinGW/MSYS2
     "terminal.integrated.defaultProfile.windows": "UCRT64",
