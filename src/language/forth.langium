@@ -15,3 +15,4 @@ terminal WORD: /[^ \t\r\n]+/;
 
 hidden terminal ML_COMMENT: /\([\s\S]*\)/;
 hidden terminal SL_COMMENT: /\\[^\r\n]*/;
+hidden terminal SHEBANG   : /#![^\r\n]*/;
