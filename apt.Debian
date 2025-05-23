@@ -1,0 +1,5 @@
+git make curl
+code meld doxygen clang-format
+cmake g++ gdb
+flex bison libreadline-dev
+npm nodejs
