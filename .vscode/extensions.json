@@ -1,9 +1,32 @@
 {
-    // See https://go.microsoft.com/fwlink/?LinkId=827846 to learn about workspace recommendations.
-    // Extension identifier format: ${publisher}.${name}. Example: vscode.csharp
-
-    // List of extensions which should be recommended for users of this workspace.
     "recommendations": [
+        "stkb.rewrap",
+        "ms-vscode.makefile-tools",
+        "IBM.output-colorizer",
+        // formatters
+        "xaver.clang-format",
+        "foxundermoon.shell-format",
+        "esbenp.prettier-vscode",
+        // Linux
+        "ms-vscode-remote.remote-ssh",
+        "coolbear.systemd-unit-file",
+        // misc
+        "usernamehw.errorlens",
+        // "hbenl.vscode-test-explorer",
+        // C++
+        "ms-vscode.cpptools",
+        "jeff-hykin.better-cpp-syntax",
+        "ms-vscode.cmake-tools",
+        // parser
+        "daohong-emilio.yash",
+        "rreverser.ragel",
+        "serghei-iakovlev.language-lemon",
+        // embedded
+        "basdp.language-gas-x86",
+        "dan-c-underwood.arm",
+        "zixuanwang.linkerscript",
+        "ms-vscode.vscode-serial-monitor",
+        // Langium
         "langium.langium-vscode",
         "vitest.explorer",
         "kingwl.vscode-vitest-runner"
