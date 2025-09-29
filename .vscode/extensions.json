@@ -1,0 +1,34 @@
+{
+    "recommendations": [
+        "stkb.rewrap",
+        "ms-vscode.makefile-tools",
+        "IBM.output-colorizer",
+        "usernamehw.errorlens",
+        "mechatroner.rainbow-csv",
+        // formatters
+        "xaver.clang-format",
+        "esbenp.prettier-vscode",
+        "foxundermoon.shell-format",
+        // Linux
+        "ms-vscode-remote.remote-ssh",
+        "coolbear.systemd-unit-file",
+        // C++
+        "ms-vscode.cpptools",
+        "jeff-hykin.better-cpp-syntax",
+        "ms-vscode.cmake-tools",
+        // parser
+        "daohong-emilio.yash",
+        "rreverser.ragel",
+        // embedded
+        "dan-c-underwood.arm",
+        "zixuanwang.linkerscript",
+        "ms-vscode.vscode-serial-monitor",
+        // "espressif.esp-idf-extension",
+        // Python
+        "ms-python.python",
+        "ms-python.autopep8",
+        "charliermarsh.ruff",
+        // FORTH
+        "fttx.language-forth",
+    ]
+}
