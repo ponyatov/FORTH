@@ -9,5 +9,6 @@ github: https://github.com/ponyatov/FORTH
 
 - https://rutube.ru/plst/1226139
 - https://rutube.ru/video/7d3448da690ecad00d848c93f8930842/?r=wd
+  - stealed from here: https://youtu.be/Np5pdDAswEI?si=L0e-rybNCtM3hd-6
 
 ![splash](doc/splash.png)
