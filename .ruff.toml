@@ -1,0 +1,19 @@
+line-length    = 80
+indent-width   = 4
+target-version = "py310"
+
+ignore = ["E26","E302","E305","E401","E402","E701","E702"]
+
+select = ["E", "F"]
+
+exclude = [
+    ".git",
+    "ref",
+    "__pycache__",
+    "*.pyi",       # Stub files
+    "migrations",  # Django migrations
+]
+
+[format]
+quote-style  = "double"
+indent-style = "space"
