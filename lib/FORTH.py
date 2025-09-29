@@ -5,7 +5,7 @@ AUTHOR  = 'Dmitry Ponyatov'
 EMAIL   = 'dponyatov@gmail.com'
 LICENSE = 'MIT'
 VERSION = '0.0.1'
-YEAR    = 2025
+YEAR    =  2025
 GITHUB  = f'https://github.com/ponyatov/{APP}'
 
 ## used libs
