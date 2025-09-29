@@ -7,6 +7,7 @@ github: https://github.com/ponyatov/FORTH
 
 ## video tutorial
 
-https://rutube.ru/plst/1226139
+- https://rutube.ru/plst/1226139
+- https://rutube.ru/video/7d3448da690ecad00d848c93f8930842/?r=wd
 
 ![splash](doc/splash.png)
