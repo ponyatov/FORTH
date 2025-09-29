@@ -45,6 +45,11 @@ for v in vscode:
     touch(f'.vscode/{v}.json')
 meld('.vscode')
 
+def apt():
+    touch('apt.Debian',f'''git make curl
+python3 python3-venv python3-autopep8 python3-ply''')
+apt();meld('apt.Debian')
+
 ## Data stack
 D = []
 
@@ -73,4 +78,3 @@ def halt():
 
 
 # halt()
-
