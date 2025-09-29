@@ -1,0 +1,86 @@
+{
+    "files.exclude": {
+        "doc/html": true, "**/node_modules/**": true,
+    },
+    "files.watcherExclude": {
+        "bin/**": true, "tmp/**": true, "ref/**": true,
+    },
+    "files.associations": {
+        "*.ini": "bcx", "*.f": "bcx"
+    },
+
+    // editor
+    "files.eol": "\n",
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+    "editor.rulers": [80],
+    "editor.lineNumbers": "on",
+    "editor.formatOnSave": false,
+    "workbench.tree.indent": 24,
+    "editor.fontSize": 14,
+    "explorer.autoReveal": false,
+    "terminal.integrated.copyOnSelection": true,
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 2222,
+    // "git.enabled": false,
+
+    // terminal
+    "SerialTerminal.serial port.configurations": ["115200n1"],
+
+    // JavaScript
+    "prettier.configPath"         : ".prettierrc",
+    "prettier.requireConfig"      :  true,
+    "json.format.enable"          :  true,
+    "[javascript]": {"editor.defaultFormatter" : "esbenp.prettier-vscode",},
+    "[json]"      : {"editor.defaultFormatter" : "esbenp.prettier-vscode",},
+    "[jsonc]"     : {"editor.defaultFormatter" : "esbenp.prettier-vscode",},
+    "[typescript]": {"editor.defaultFormatter" : "esbenp.prettier-vscode" },
+
+    // clang-format
+    "clang-format.executable"     : "clang-format",
+    "clang-format.fallbackStyle"  : "Google",
+    "clang-format.style"          : "file",
+
+    // C++
+    "[c]"  : { "editor.defaultFormatter" : "xaver.clang-format" },
+    "[cpp]": { "editor.defaultFormatter" : "xaver.clang-format" },
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    "C_Cpp.files.exclude": { "ref":true },
+    // "C_Cpp.intelliSenseEngine": "Tag Parser",
+
+    // CMake
+    "cmake.sourceDirectory" : "${workspaceFolder}",
+    "cmake.buildDirectory"  : "${workspaceFolder}/tmp/${workspaceFolderBasename}",
+    "cmake.generator"       : "Unix Makefiles",
+    "cmake.parallelJobs"    :  2,
+    "cmake.useCMakePresets" : "always",
+    "cmake.buildBeforeRun"  :  true,
+    "cmake.saveBeforeBuild" :  true,
+    "cmake.debugConfig"     : {
+        "cwd" :   "${workspaceFolder}",
+        "args": [ "lib/${workspaceFolderBasename}.ini" ] },
+    "cmake.allowCommentsInPresetsFile" : true,
+    "cmake.ignoreCMakeListsMissing"    : true,
+
+    // Python
+    "python.defaultInterpreterPath":  "python3",
+    "autopep8.path"                : ["autopep8"],
+    "autopep8.args"                : ["--ignore","E26,E302,E305,E401,E402,E701,E702"],
+    "python.analysis.extraPaths"   : ["${workspaceFolder}/src", "${workspaceFolder}/scripts"],
+    "[python]": { "editor.defaultFormatter" : "ms-python.autopep8" },
+    "ruff.configuration": ".ruff.toml",
+
+    // MinGW/MSYS2
+    "terminal.integrated.defaultProfile.windows": "UCRT64",
+    "terminal.integrated.profiles.windows": {
+      "UCRT64": {
+        "path": "C:\\msys64\\usr\\bin\\bash.exe",
+        "args": ["--login","-i"],
+        "env": {
+          "MSYSTEM": "UCRT64",
+          "CHERE_INVOKING": "1",
+        }}},
+}
