@@ -24,6 +24,10 @@ def mkdir(name, giti='!.gitignore'):
     except FileExistsError: pass
     with open(f'{name}/.gitignore','w') as g: print(giti, file=g)
 
+## run `meld` using side project template
+def meld(file):
+    os.system(f'meld {file} ~/em/{file}')
+
 ## generic project structure
 dirs = ['.','.vscode','bin','doc','lib','inc','src','tmp','ref']
 for d in dirs: mkdir(d)
@@ -35,6 +39,11 @@ def README():
 github: {GITHUB}''')
 
 README()
+
+vscode = ['extensions', 'settings', 'launch', 'tasks', 'c_cpp_properties']
+for v in vscode:
+    touch(f'.vscode/{v}.json')
+meld('.vscode')
 
 ## Data stack
 D = []
