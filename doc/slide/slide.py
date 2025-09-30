@@ -18,10 +18,13 @@ for i in filter(lambda name: re.match(r'\d+.(md|png)', name), os.listdir('doc/sl
         case 'md':
             mp3 = f'tmp/slide/{name}.mp3'
             fragment[name]['mp3'] = mp3
-            with open(f'tmp/slide/{name}.md', 'w') as w:
+            ru = f'tmp/slide/{name}.md'
+            with open(ru, 'w') as w:
                 with open(f'doc/slide/{name}.md', 'r') as r:
                     print(r.read().split('# ru')[-1], file=w)
-            if not os.path.exists(mp3): os.system(f'make {mp3}')
+            # if not os.path.exists(mp3):
+            ru2mp3 = f'RHVoice-test -i {ru} -o {mp3} -v 200 -r 130 -p pavel'
+            print(ru2mp3); os.system(ru2mp3)
         case 'png':
             fragment[name]['png'] = f'doc/slide/{name}.png'
 
@@ -64,6 +67,7 @@ with open('tmp/slide/m3u.m3u', 'w') as m3u:
         dura = float(probe['streams'][0]['duration'])
         print(k, png, mp3, dura)
         # slide(k, png, mp3, dura)
-        print(f'{k}.mp4', file=m3u)
+        print(f'file {k}.mp4', file=m3u)
 
-os.system('vlc tmp/slide/m3u.m3u --fullscreen')
+os.system('ffmpeg -f concat -safe 0 -i tmp/slide/m3u.m3u tmp/slide/mp4.mp4')
+# os.system('vlc tmp/slide/mp4.mp4')# --fullscreen')
