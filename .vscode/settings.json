@@ -1,6 +1,9 @@
 {
     "files.exclude": {
         "doc/html": true, "**/node_modules/**": true,
+        "bin/py*": true, "bin/pip*": true,
+        "bin/?ctivate*": true, "bin/autopep*": true,
+        "lib/python*": true, "lib64":true, "include":true,
     },
     "files.watcherExclude": {
         "bin/**": true, "tmp/**": true, "ref/**": true,
@@ -69,7 +72,7 @@
     "python.defaultInterpreterPath":  "${workspaceFolder}/bin/python3",
     "autopep8.path"                : ["${workspaceFolder}/bin/autopep8"],
     "autopep8.args"                : ["--ignore","E26,E302,E305,E401,E402,E701,E702"],
-    "python.analysis.extraPaths"   : ["${workspaceFolder}/src", "${workspaceFolder}/scripts"],
+    "python.analysis.extraPaths"   : ["${workspaceFolder}/src", "${workspaceFolder}/lib"],
     "[python]": { "editor.defaultFormatter" : "ms-python.autopep8" },
     "ruff.configuration": ".ruff.toml",
 

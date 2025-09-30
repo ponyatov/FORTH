@@ -1,4 +1,5 @@
 import os, sys, re
+import ffmpeg
 
 try: os.mkdir('tmp/slide')
 except FileExistsError: pass
