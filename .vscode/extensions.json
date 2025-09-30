@@ -5,6 +5,9 @@
         "IBM.output-colorizer",
         "usernamehw.errorlens",
         "mechatroner.rainbow-csv",
+        // documenting
+        "bierner.markdown-mermaid",
+        "jebbs.plantuml",
         // formatters
         "xaver.clang-format",
         "esbenp.prettier-vscode",
