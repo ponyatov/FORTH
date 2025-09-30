@@ -1,4 +1,8 @@
+## sudo python required!
+
 import py_pcapplusplus as pcpp
 
+# sender
 veths = pcpp.RawSocket('veths')
-veth4 = pcpp.RawSocket('veth4')
+# receiver
+vethr = pcpp.RawSocket('vethr')

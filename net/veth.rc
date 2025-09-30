@@ -46,8 +46,10 @@ sudo ip netns exec nsr ip addr
 #        valid_lft forever preferred_lft forever
 
 ## enable both interfaces
-sudo ip netns exec nss ip link set veths up
-sudo ip netns exec nsr ip link set vethr up
+# sudo ip netns exec nss 
+sudo ip link set veths up
+# sudo ip netns exec nsr 
+sudo ip link set vethr up
 
 ## check traffic goes
 ### ping
