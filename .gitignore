@@ -1,1 +1,9 @@
+*~
+*.swp
+*.log
+*.pyc
+lib64
+lib/python*
+bin/pip*
+bin/python*
 !.gitignore
