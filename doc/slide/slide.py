@@ -4,30 +4,35 @@ import ffmpeg
 try: os.mkdir('tmp/slide')
 except FileExistsError: pass
 
+mp3 = 'doc/dos.mp3'
 mp4 = 'tmp/slide/mp4.mp4'
 
 splash = ffmpeg.input('doc/splash.png', loop=1, framerate=1)
-dos = ffmpeg.input('doc/dos.mp3')
+dos = ffmpeg.input(mp3)
+probe = ffmpeg.probe(mp3)
+dura = float(probe['streams'][0]['duration'])
 
 stream = ffmpeg.output(
     splash,
     dos,
     mp4,
+    t=dura,
     **{
         # video codec
         'c:v': 'libx264',
         'pix_fmt':'yuv420p',
         'vf': 'scale=1280:720,fps=1',
+        'r':1,
         'preset': 'ultrafast',
         'crf': 28,
         # audio codec
         'c:a': 'aac',
         'b:a': '128k',
-        'ac':1,
+        'ac': 1,
         'ar': 44100,
         # 'tune': 'stillimage',
         # Use 'shortest' to stop when the audio ends
-        # 'shortest': 1
+        # 'shortest': None,
     }
 )
 
