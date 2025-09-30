@@ -2,9 +2,9 @@ bin/$(BINFILE): $(C) $(H) $(CP) $(HP) $(MK) $(CM)
 	cmake --fresh --preset linux
 	cmake --build --preset linux -j
 
-RU = pavel
-tmp/slide/%.ru.mp3: tmp/slide/%.ru.md mk/rule.mk
-	RHVoice-test -i $< -o $@ -p $(RU)
+VOICE = pavel
+tmp/slide/%.mp3: tmp/slide/%.md mk/rule.mk
+	RHVoice-test -i $< -o $@ -p $(VOICE)
 
 # MDS = $(wildcard doc/slide/*.md)
 # MP3 = $(subst doc/,tmp/, $(subst .md,.mp3,$(MDS)))

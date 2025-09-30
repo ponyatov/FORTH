@@ -1,0 +1,58 @@
+#!/bin/sh
+
+## create network namespaces for Sender and Receiver
+sudo ip netns add nss
+sudo ip netns add nsr
+ip netns
+# nsr
+# nss
+
+## veth pair
+sudo ip link add veths type veth peer name vethr
+ip addr
+# 15: vethr@veths: <BROADCAST,MULTICAST,M-DOWN> mtu 1500 qdisc noop state DOWN group default qlen 1000
+#     link/ether d6:4e:45:79:3c:e6 brd ff:ff:ff:ff:ff:ff
+# 16: veths@vethr: <BROADCAST,MULTICAST,M-DOWN> mtu 1500 qdisc noop state DOWN group default qlen 1000
+#     link/ether e2:9b:e8:7a:a2:97 brd ff:ff:ff:ff:ff:ff
+
+## puth veth's into netnses
+sudo ip link set veths netns nss
+sudo ip link set vethr netns nsr
+ip addr
+#
+sudo ip netns exec nss ip addr
+# 1: lo: <LOOPBACK> mtu 65536 qdisc noop state DOWN group default qlen 1000
+#     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+# 16: veths@if15: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN group default qlen 1000
+#     link/ether e2:9b:e8:7a:a2:97 brd ff:ff:ff:ff:ff:ff link-netns nsr
+sudo ip netns exec nsr ip addr
+# 15: vethr@if16: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN group default qlen 1000
+#     link/ether d6:4e:45:79:3c:e6 brd ff:ff:ff:ff:ff:ff link-netns nss
+
+## assign ip addresses
+# sudo ip netns exec nss 
+sudo ip addr add 111.111.111.111/24 dev veths
+# sudo ip netns exec nsr sudo
+sudo ip addr add 111.111.111.222/24 dev vethr
+sudo ip netns exec nss ip addr
+# 16: veths@if15: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN group default qlen 1000
+#     link/ether e2:9b:e8:7a:a2:97 brd ff:ff:ff:ff:ff:ff link-netns nsr
+#     inet 111.111.111.111/24 scope global veths
+#        valid_lft forever preferred_lft forever
+sudo ip netns exec nsr ip addr
+# 15: vethr@if16: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN group default qlen 1000
+#     link/ether d6:4e:45:79:3c:e6 brd ff:ff:ff:ff:ff:ff link-netns nss
+#     inet 111.111.111.222/24 scope global vethr
+#        valid_lft forever preferred_lft forever
+
+## enable both interfaces
+sudo ip netns exec nss ip link set veths up
+sudo ip netns exec nsr ip link set vethr up
+
+## check traffic goes
+### ping
+sudo ip netns exec nss ping -c 2 111.111.111.222
+sudo ip netns exec nsr ping -c 2 111.111.111.111
+### test UDP passes
+sudo ip netns exec nsr nc -u -l 111.111.111.222 -p 12345 &
+sudo ip netns exec nsr nc -c ls -u 111.111.111.222 12345
