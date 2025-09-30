@@ -25,12 +25,9 @@ vethr = pcpp.RawSocket(Recv.name)
 packet = pcpp.Packet()
 
 # add layers
-eth = pcpp.EthLayer(src_mac_addr=Send.mac,
-                    dst_mac_addr=Recv.mac)
-ip = pcpp.IPv4Layer(src_addr=Send.ip,
-                    dst_addr=Recv.ip)
-udp = pcpp.UdpLayer(src_port=Send.port,
-                    dst_port=Recv.port)
+eth = pcpp.EthLayer(src_mac_addr=Send.mac, dst_mac_addr=Recv.mac)
+ip = pcpp.IPv4Layer(src_addr=Send.ip, dst_addr=Recv.ip)
+udp = pcpp.UdpLayer(src_port=Send.port, dst_port=Recv.port)
 
 packet / eth / ip / udp
 
