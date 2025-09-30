@@ -4,6 +4,37 @@ import ffmpeg
 try: os.mkdir('tmp/slide')
 except FileExistsError: pass
 
+mp4 = 'tmp/slide/mp4.mp4'
+
+splash = ffmpeg.input('doc/splash.png', loop=1, framerate=1)
+dos = ffmpeg.input('doc/dos.mp3')
+
+stream = ffmpeg.output(
+    splash,
+    dos,
+    mp4,
+    **{
+        # video codec
+        'c:v': 'libx264',
+        'pix_fmt':'yuv420p',
+        'vf': 'scale=1280:720,fps=1',
+        'preset': 'ultrafast',
+        'crf': 28,
+        # audio codec
+        'c:a': 'aac',
+        'b:a': '128k',
+        'ac':1,
+        'ar': 44100,
+        # 'tune': 'stillimage',
+        # Use 'shortest' to stop when the audio ends
+        # 'shortest': 1
+    }
+)
+
+stream = ffmpeg.overwrite_output(stream)
+ffmpeg.run(stream)
+os.system(f'vlc {mp4} --fullscreen')
+
 with open('tmp/slide/m3u.m3u', 'w') as m3u:
     for md in sorted(os.listdir('doc/slide')):
         name, ext = md.split('.')
