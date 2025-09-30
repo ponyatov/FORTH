@@ -8,7 +8,7 @@ mp4 = 'tmp/slide/mp4.mp4'
 
 # video fragments
 fragment = {
-    '': {'png': 'doc/splash.png', 'mp3': 'doc/dos.mp3', } # splashscreen
+    '  ': {'png': 'doc/splash.png', 'mp3': 'doc/dos.mp3', } # splashscreen
 }
 
 # splash = ffmpeg.input('doc/splash.png', loop=1, framerate=1)
@@ -23,36 +23,21 @@ for i in filter(lambda name: re.match(r'\d+.(md|png)', name), os.listdir('doc/sl
     if name not in fragment.keys(): fragment[name] = {}
     match ext:
         case 'md':
+            with open(f'tmp/slide/{name}.md','w') as w:
+                with open(f'doc/slide/{name}.md','r') as r:
+                    print(r.read().split('# ru')[-1],file=w)
             fragment[name]['mp3'] = f'tmp/slide/{name}.mp3'
-            # os.system(f'make tmp/slide/{name}.mp3')
+            os.system(f'make tmp/slide/{name}.mp3')
         case 'png':
             fragment[name]['png'] = f'doc/slide/{name}.png'
 
 for k in sorted(fragment.keys()):
-    print(k, fragment[k])
-
-# with open('tmp/slide/m3u.m3u', 'w') as m3u:
-#     for md in sorted(os.listdir('doc/slide')):
-#         if re.match(r'\d+', name):
-#             match ext:
-#                 case 'md':
-#                     with open(f'doc/slide/{name}.md', 'r') as r:
-#                         text = r.read().split('# ru')[-1]
-#                         with open(f'tmp/slide/{name}.ru.md', 'w') as w:
-#                             print(text, file=w)
-#                     print(f'file {name}.ru.mp3', file=m3u)
-#                 case 'png':
-#                     os.system(f'cp doc/slide/{name}.png tmp/slide/{name}.png')
-#                     print(f'file {name}.png', file=m3u)
-
-    #     with open('tmp/slide/files.audio', 'w') as audio:
-    #         if ext == 'md':
-    #             with open(f'doc/slide/{name}.md', 'r') as r:
-    #                 text = r.read().split('# ru')[-1]
-    #                 with open(f'tmp/slide/{name}.md', 'w') as w:
-    #                     print(text, file=w)
-    #             # print(f'{name}.mp3', file=m3u)
-    #             print(f'file {name}.mp3')#, file=audio)
+    png = fragment[k]['png']
+    mp3 = fragment[k]['mp3']
+    print(k,png,mp3)
+    probe = ffmpeg.probe(mp3)
+    # dura = float(probe['streams'][0]['duration'])
+    # print(k,png,mp3,dura)
 
 stream = ffmpeg.output(
     splash,
