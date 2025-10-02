@@ -22,6 +22,15 @@ fragment = {
     '00': {'png': 'doc/splash.png', 'mp3': 'doc/dos.mp3', } # splashscreen
 }
 
+for i in filter(lambda name: re.match(r'\d+.(md|png)', name), os.listdir('doc/slide')):
+    name, ext = i.split('.')
+    if name not in fragment.keys(): fragment[name] = {}
+    match ext:
+        case 'md':
+            fragment[name]['mp3'] = f'tmp/slide/{name}.mp3'
+        case 'png':
+            fragment[name]['png'] = f'doc/slide/{name}.png'
+
 def slide(k, video, audio, dura):
     video = ffmpeg.input(video, loop=1, framerate=1)
     audio = ffmpeg.input(audio)
@@ -56,8 +65,8 @@ def slide(k, video, audio, dura):
 def single(k):
     tts(k)
     # os.system(f'cvlc tmp/slide/{k}.mp3')
-    png = fragment[k]['png']
-    mp3 = fragment[k]['mp3']
+    png = f'doc/slide/{k}.png'# fragment[k]['png']
+    mp3 = f'tmp/slide/{k}.mp3'# fragment[k]['mp3']
     probe = ffmpeg.probe(mp3)
     dura = float(probe['streams'][0]['duration'])
     print(k, png, mp3, dura)
@@ -66,18 +75,9 @@ def single(k):
 
 def vid(k,x=1250,y=450,w=640,h=360):
     os.system(f'import -window root -crop {w}x{h}+{x}+{y} png:doc/slide/{k}.png')
-vid('07')
+vid('08')
 
-for i in filter(lambda name: re.match(r'\d+.(md|png)', name), os.listdir('doc/slide')):
-    name, ext = i.split('.')
-    if name not in fragment.keys(): fragment[name] = {}
-    match ext:
-        case 'md':
-            fragment[name]['mp3'] = f'tmp/slide/{name}.mp3'
-        case 'png':
-            fragment[name]['png'] = f'doc/slide/{name}.png'
-
-single('07')
+single('08')
 
 with open('tmp/slide/fragments.list', 'w') as list:
     with open('tmp/slide/m3u.m3u', 'w') as m3u:
