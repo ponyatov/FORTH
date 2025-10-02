@@ -75,9 +75,10 @@ def single(k):
 
 def vid(k,x=1250,y=450,w=640,h=360):
     os.system(f'import -window root -crop {w}x{h}+{x}+{y} png:doc/slide/{k}.png')
-vid('08')
 
-single('08')
+vid('09')
+
+single('09')
 
 with open('tmp/slide/fragments.list', 'w') as list:
     with open('tmp/slide/m3u.m3u', 'w') as m3u:
