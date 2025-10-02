@@ -22,15 +22,6 @@ fragment = {
     '00': {'png': 'doc/splash.png', 'mp3': 'doc/dos.mp3', } # splashscreen
 }
 
-for i in filter(lambda name: re.match(r'\d+.(md|png)', name), os.listdir('doc/slide')):
-    name, ext = i.split('.')
-    if name not in fragment.keys(): fragment[name] = {}
-    match ext:
-        case 'md':
-            fragment[name]['mp3'] = f'tmp/slide/{name}.mp3'
-        case 'png':
-            fragment[name]['png'] = f'doc/slide/{name}.png'
-
 def slide(k, video, audio, dura):
     video = ffmpeg.input(video, loop=1, framerate=1)
     audio = ffmpeg.input(audio)
@@ -72,7 +63,17 @@ def single(k):
     print(k, png, mp3, dura)
     slide(k, png, mp3, dura)
     os.system(f'cvlc tmp/slide/{k}.mp4')
-single('05')
+
+for i in filter(lambda name: re.match(r'\d+.(md|png)', name), os.listdir('doc/slide')):
+    name, ext = i.split('.')
+    if name not in fragment.keys(): fragment[name] = {}
+    match ext:
+        case 'md':
+            fragment[name]['mp3'] = f'tmp/slide/{name}.mp3'
+        case 'png':
+            fragment[name]['png'] = f'doc/slide/{name}.png'
+
+single('06')
 
 with open('tmp/slide/fragments.list', 'w') as list:
     with open('tmp/slide/m3u.m3u', 'w') as m3u:
