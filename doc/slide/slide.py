@@ -64,6 +64,10 @@ def single(k):
     slide(k, png, mp3, dura)
     os.system(f'cvlc tmp/slide/{k}.mp4')
 
+def vid(k,x=1250,y=450,w=640,h=360):
+    os.system(f'import -window root -crop {w}x{h}+{x}+{y} png:doc/slide/{k}.png')
+vid('07')
+
 for i in filter(lambda name: re.match(r'\d+.(md|png)', name), os.listdir('doc/slide')):
     name, ext = i.split('.')
     if name not in fragment.keys(): fragment[name] = {}
@@ -73,7 +77,7 @@ for i in filter(lambda name: re.match(r'\d+.(md|png)', name), os.listdir('doc/sl
         case 'png':
             fragment[name]['png'] = f'doc/slide/{name}.png'
 
-single('06')
+single('07')
 
 with open('tmp/slide/fragments.list', 'w') as list:
     with open('tmp/slide/m3u.m3u', 'w') as m3u:
