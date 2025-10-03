@@ -34,7 +34,6 @@ for i in filter(lambda name: re.match(r'\d+.(md|png)', name), os.listdir('doc/sl
 def slide(k, video, audio, dura):
     video = ffmpeg.input(video, loop=1, framerate=1)
     audio = ffmpeg.input(audio)
-
     stream = ffmpeg.output(
         video,
         audio,
@@ -58,7 +57,6 @@ def slide(k, video, audio, dura):
             # 'shortest': None,
         }
     )
-
     stream = ffmpeg.overwrite_output(stream)
     ffmpeg.run(stream)
 
@@ -76,9 +74,10 @@ def single(k):
 def vid(k,x=1250,y=450,w=640,h=360):
     os.system(f'import -window root -crop {w}x{h}+{x}+{y} png:doc/slide/{k}.png')
 
-vid('10')
+vid('14')
+vid('14',700,70)
 
-single('10')
+single('14')
 
 with open('tmp/slide/fragments.list', 'w') as list:
     with open('tmp/slide/m3u.m3u', 'w') as m3u:
