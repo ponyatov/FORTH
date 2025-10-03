@@ -3,8 +3,10 @@
     "configurations": [
         {
             "name"            : "py/FORTH",
-            "type"            : "pyf",
-            "request"         : "launch"
+            "type"            : "python",
+            "request"         : "launch",
+            "program"         : "${workspaceFolder}/${workspaceFolderBasename}_lsp.py",
+            "console"         : "integratedTerminal"
         },
         {
             "name"            : "cmake:linux",
