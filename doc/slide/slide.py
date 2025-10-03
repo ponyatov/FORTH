@@ -76,8 +76,8 @@ def vid(k,x=1250,y=440,w=640,h=360):
 
 vid('14',700,70)
 
-vid('26')
-single('26')
+vid('27')
+single('27')
 
 with open('tmp/slide/fragments.list', 'w') as list:
     with open('tmp/slide/m3u.m3u', 'w') as m3u:
