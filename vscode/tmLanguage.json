@@ -1,0 +1,45 @@
+{
+    "$schema"  : "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name"     : "pyf",
+    "version"  : "0.0.1",
+    "scopeName": "source.pyf",
+    "fileTypes": [".ini", ".f"],
+    "patterns": [
+        {"include": "#comment"},
+        {"include": "#keyword"},
+        {"include": "#expression"}
+    ],
+    "repository": {
+        "comment": {
+            "patterns": [
+                {
+                    "name" : "comment.shebang.pyf",
+                    "match": "#!.*"
+                },
+                {
+                    "name" : "comment.forth.pyf",
+                    "begin": "\\\\",
+                    "end"  : "$"
+                },
+                {
+                    "name" : "comment.stack.pyf",
+                    "begin": "[(]",
+                    "end"  : "[)]"
+                }
+            ]
+        },
+        "keyword": {
+            "name": "keyword.control.pyf",
+            "match": "\\b(nop|halt)\\b"
+        },
+        "expression": {
+            "patterns": [
+                {"include": "#number"}
+            ]
+        },
+        "number": {
+            "name": "constant.numeric.pyf",
+            "match": "[+-]?(0x[0-9A-Fa-f]+|0b[01]+|[0-9]+)([eE][+-]?[0-9]+)?"
+        }
+    }
+}
