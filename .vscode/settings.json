@@ -9,7 +9,7 @@
         "bin/**": true, "tmp/**": true, "ref/**": true,
     },
     "files.associations": {
-        "*.ini": "bcx", "*.f": "bcx"
+        "*.ini": "pyf", "*.f": "pyf"
     },
 
     // editor
