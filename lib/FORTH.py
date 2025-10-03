@@ -1,12 +1,13 @@
 ## project metainformation
-APP     = 'FORTH'
-TITLE   = 'minimal script language model in Python'
-AUTHOR  = 'Dmitry Ponyatov'
-EMAIL   = 'dponyatov@gmail.com'
-LICENSE = 'MIT'
-VERSION = '0.0.1'
-YEAR    =  2025
-GITHUB  = f'https://github.com/ponyatov/{APP}'
+APP      = 'FORTH'
+TITLE    = 'minimal FORTH language model in Python'
+AUTHOR   = 'Dmitry Ponyatov'
+EMAIL    = 'dponyatov@gmail.com'
+TELEGRAM = '@dponyatov'
+LICENSE  = 'MIT'
+VERSION  = '0.0.1'
+YEAR     =  2025
+GITHUB   = f'https://github.com/ponyatov/{APP}'
 
 ## used libs
 import os, sys
