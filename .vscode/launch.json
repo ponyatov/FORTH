@@ -5,7 +5,7 @@
             "name"            : "py/FORTH",
             "type"            : "python",
             "request"         : "launch",
-            "program"         : "${workspaceFolder}/${workspaceFolderBasename}_lsp.py",
+            "program"         : "${workspaceFolder}/lib/${workspaceFolderBasename}.py",
             "console"         : "integratedTerminal"
         },
         {

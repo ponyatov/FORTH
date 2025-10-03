@@ -21,64 +21,64 @@ def dump():
 
 dump()
 
-## used libs
-import os, sys
+# ## used libs
+# import os, sys
 
-## project generator
+# ## project generator
 
-## create file
-def touch(name, content=None):
-    with open(name, 'w') as f:
-        if content is not None: print(content, file=f)
+# ## create file
+# def touch(name, content=None):
+#     with open(name, 'w') as f:
+#         if content is not None: print(content, file=f)
 
-## create directory
-def mkdir(name, giti='!.gitignore'):
-    try: os.mkdir(name)
-    except FileExistsError: pass
-    with open(f'{name}/.gitignore','w') as g: print(giti, file=g)
+# ## create directory
+# def mkdir(name, giti='!.gitignore'):
+#     try: os.mkdir(name)
+#     except FileExistsError: pass
+#     with open(f'{name}/.gitignore','w') as g: print(giti, file=g)
 
-## run `meld` using side project template
-def meld(file):
-    os.system(f'meld {file} ~/em/{file}')
+# ## run `meld` using side project template
+# def meld(file):
+#     os.system(f'meld {file} ~/em/{file}')
 
-## generic project structure
-dirs = ['.','.vscode','bin','doc','lib','inc','src','tmp','ref']
-for d in dirs: mkdir(d)
+# ## generic project structure
+# dirs = ['.','.vscode','bin','doc','lib','inc','src','tmp','ref']
+# for d in dirs: mkdir(d)
 
-def README():
-    touch('README.md',f'''# ![](doc/logo.png) `{APP}` {VERSION}
-## {TITLE}\n
-(c) {AUTHOR} <<{EMAIL}>> {YEAR} {LICENSE}\n
-github: {GITHUB}''')
+# def README():
+#     touch('README.md',f'''# ![](doc/logo.png) `{APP}` {VERSION}
+# ## {TITLE}\n
+# (c) {AUTHOR} <<{EMAIL}>> {YEAR} {LICENSE}\n
+# github: {GITHUB}''')
 
-README()
+# README()
 
-vscode = ['extensions', 'settings', 'launch', 'tasks', 'c_cpp_properties']
-for v in vscode:
-    touch(f'.vscode/{v}.json')
-meld('.vscode')
+# vscode = ['extensions', 'settings', 'launch', 'tasks', 'c_cpp_properties']
+# for v in vscode:
+#     touch(f'.vscode/{v}.json')
+# meld('.vscode')
 
-def apt():
-    touch('apt.Debian',f'''git make curl
-python3 python3-venv python3-autopep8 python3-ply''')
-apt();meld('apt.Debian')
+# def apt():
+#     touch('apt.Debian',f'''git make curl
+# python3 python3-venv python3-autopep8 python3-ply''')
+# apt();meld('apt.Debian')
 
-## program run trace flag
-trace = True
+# ## program run trace flag
+# trace = True
 
-# core VM commands
+# # core VM commands
 
-## `( -- )` empty command: no nothing
-def nop():
-    if trace: print(nop)
-nop()
-
-
-def halt():
-    " ( -- ) stop system "
-    if trace:
-        print(halt)
-    sys.exit(0)
+# ## `( -- )` empty command: no nothing
+# def nop():
+#     if trace: print(nop)
+# nop()
 
 
-# halt()
+# def halt():
+#     " ( -- ) stop system "
+#     if trace:
+#         print(halt)
+#     sys.exit(0)
+
+
+# # halt()
