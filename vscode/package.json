@@ -18,7 +18,8 @@
     "homepage": "https://github.com/ponyatov/FORTH",
     "activationEvents": [
         "workspaceContains:lib/*.ini",
-        "workspaceContains:lib/*.f"
+        "workspaceContains:lib/*.f",
+        "onDebug"
     ],
     "extensionDependencies": [
         "ms-python.python"
@@ -34,6 +35,35 @@
             "language" : "pyf",
             "scopeName": "source.pyf",
             "path"     : "tmLanguage.json"
+        }],
+        "debuggers": [{
+            "type"   : "pyf",
+            "label"  : "py/FORTH",
+            "program": "debugAdapter.js",
+            "runtime": "node",
+            "configurationAttributes": {
+                "launch": {
+                    "properties": {
+                        "program": {
+                            "type"       : "string",
+                            "description": "Path to assembly file",
+                            "default"    : "${workspaceFolder}/lib/${workspaceFolderBaseName}.f"
+                        },
+                        "stopOnEntry": {
+                            "type"       : "boolean",
+                            "description": "Stop on entry",
+                            "default"    : true
+                        }
+                    }
+                }
+            },
+            "initialConfigurations": [{
+                "type"       : "pyf",
+                "name"       : "py/FORTH",
+                "request"    : "launch",
+                "program"    : "${workspaceFolder}/lib/${workspaceFolderBaseName}.f",
+                "stopOnEntry": true
+            }]
         }]
     }
 }

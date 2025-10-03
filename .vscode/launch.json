@@ -2,6 +2,11 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name"            : "py/FORTH",
+            "type"            : "pyf",
+            "request"         : "launch"
+        },
+        {
             "name"            : "cmake:linux",
             "type"            : "cppdbg",
             "request"         : "launch",
