@@ -9,6 +9,18 @@ VERSION  = '0.0.1'
 YEAR     =  2025
 GITHUB   = f'https://github.com/ponyatov/{APP}'
 
+## FVM memory
+
+D = [] ## Data stack
+R = [] ## Return stack
+W = {} ## vocabulary Words
+
+## `( -- )` dump FVM state
+def dump():
+    print(f'\nD:{D}\nR:{R}\nW:{W}\n')
+
+dump()
+
 ## used libs
 import os, sys
 
@@ -50,15 +62,6 @@ def apt():
     touch('apt.Debian',f'''git make curl
 python3 python3-venv python3-autopep8 python3-ply''')
 apt();meld('apt.Debian')
-
-## Data stack
-D = []
-
-## Return stack
-R = []
-
-## vocabulary Words
-W = {}
 
 ## program run trace flag
 trace = True

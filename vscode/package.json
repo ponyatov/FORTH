@@ -1,0 +1,39 @@
+{
+    "name"       : "pyf",
+    "displayName": "py/FORTH",
+    "description": "minimal FORTH language model in Python",
+    "version"    : "0.0.1",
+    "icon"       : "logo.png",
+    "publisher"  : "dponyatov",
+    "license"    : "MIT",
+    "engines": {
+        "vscode": "^1.90.0"
+    },
+    "categories": [
+        "Programming Languages", "Debuggers"
+    ],
+    "keywords": [
+        "bytecode", "FORTH", "CLI", "REPL", "script", "interpreter"
+    ],
+    "homepage": "https://github.com/ponyatov/FORTH",
+    "activationEvents": [
+        "workspaceContains:lib/*.ini",
+        "workspaceContains:lib/*.f"
+    ],
+    "extensionDependencies": [
+        "ms-python.python"
+    ],
+    "main": "extension.js",
+    "contributes": {
+        "languages": [{
+            "id"           :  "pyf",
+            "extensions"   : [".ini", ".f"],
+            "configuration":  "languageConfiguration.json"
+        }],
+        "grammars": [{
+            "language" : "pyf",
+            "scopeName": "source.pyf",
+            "path"     : "tmLanguage.json"
+        }]
+    }
+}

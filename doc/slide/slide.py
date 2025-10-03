@@ -74,8 +74,8 @@ def single(k):
 def vid(k,x=1250,y=440,w=640,h=360):
     os.system(f'import -window root -crop {w}x{h}+{x}+{y} png:doc/slide/{k}.png')
 
-vid('28',700,70)
-single('28')
+vid('29',700,70)
+single('29')
 
 vid('27',y=430)
 single('27')
