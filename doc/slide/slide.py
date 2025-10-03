@@ -71,13 +71,13 @@ def single(k):
     slide(k, png, mp3, dura)
     os.system(f'cvlc tmp/slide/{k}.mp4')
 
-def vid(k,x=1250,y=450,w=640,h=360):
+def vid(k,x=1250,y=440,w=640,h=360):
     os.system(f'import -window root -crop {w}x{h}+{x}+{y} png:doc/slide/{k}.png')
 
 vid('14',700,70)
 
-vid('20')
-single('20')
+vid('21')
+single('21')
 
 with open('tmp/slide/fragments.list', 'w') as list:
     with open('tmp/slide/m3u.m3u', 'w') as m3u:
