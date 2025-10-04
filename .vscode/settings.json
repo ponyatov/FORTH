@@ -67,6 +67,9 @@
         "args": [ "lib/${workspaceFolderBasename}.ini" ] },
     "cmake.allowCommentsInPresetsFile" : true,
     "cmake.ignoreCMakeListsMissing"    : true,
+    "python.testing.pytestArgs"        : ["lib"],
+    "python.testing.unittestEnabled"   : false,
+    "python.testing.pytestEnabled"     : true,
 
     // Python
     "python.defaultInterpreterPath":  "${workspaceFolder}/bin/python3",
