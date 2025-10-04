@@ -15,7 +15,7 @@ class TestD:
     def test_pop(self): push(1); assert pop() == 1; assert D == []
     def test_top(self): push(1); assert top() == 1; assert D == [1]
 
-    def test_empty(self): clear(); assert D == []
+    def test_clear(self): clear(); assert D == []
 
     def test_depth(self):
         assert depth() == [0]
@@ -24,5 +24,5 @@ class TestD:
 
 ## test @ref R return stack operations
 class TestR:
-    def test_empty(self):
+    def test_clear(self):
         assert R == []
