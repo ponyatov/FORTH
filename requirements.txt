@@ -1,4 +1,6 @@
+ruff
 autopep8
+pytest
 ply
-ffmpeg-python
 pygls
+ffmpeg-python

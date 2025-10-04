@@ -9,6 +9,7 @@ select = ["E", "F"]
 exclude = [
     ".git",
     "ref",
+    "tmp",
     "__pycache__",
     "*.pyi",       # Stub files
     "migrations",  # Django migrations

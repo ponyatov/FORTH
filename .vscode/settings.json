@@ -6,7 +6,7 @@
         "lib/python*": true, "lib64":true, "include":true,
     },
     "files.watcherExclude": {
-        "bin/**": true, "tmp/**": true, "ref/**": true,
+        "bin/**": true, "tmp/**": false, "ref/**": true,
     },
     "files.associations": {
         "*.ini": "pyf", "*.f": "pyf"
@@ -75,6 +75,9 @@
     "python.analysis.extraPaths"   : ["${workspaceFolder}/src", "${workspaceFolder}/lib"],
     "[python]": { "editor.defaultFormatter" : "ms-python.autopep8" },
     "ruff.configuration": ".ruff.toml",
+    // "ruff.interpreter": ["${workspaceFolder}/bin/python3"],
+    "ruff.lint.preview": true,
+    "ruff.format.preview": true,
 
     // MinGW/MSYS2
     "terminal.integrated.defaultProfile.windows": "UCRT64",
