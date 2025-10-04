@@ -1,13 +1,13 @@
 ## project metainformation
-APP      = 'FORTH'
-TITLE    = 'minimal FORTH language model in Python'
-AUTHOR   = 'Dmitry Ponyatov'
-EMAIL    = 'dponyatov@gmail.com'
+APP = 'FORTH'
+TITLE = 'minimal FORTH language model in Python'
+AUTHOR = 'Dmitry Ponyatov'
+EMAIL = 'dponyatov@gmail.com'
 TELEGRAM = '@dponyatov'
-LICENSE  = 'MIT'
-VERSION  = '0.0.1'
-YEAR     =  2025
-GITHUB   = f'https://github.com/ponyatov/{APP}'
+LICENSE = 'MIT'
+VERSION = '0.0.1'
+YEAR = 2025
+GITHUB = f'https://github.com/ponyatov/{APP}'
 
 ## FVM memory
 
@@ -20,6 +20,20 @@ def dump():
     print(f'\nD:{D}\nR:{R}\nW:{W}\n')
 
 dump()
+
+## stack operations
+
+## `( -- cell )` push any Python object into @ref D data stack
+def push(cell): D.append(cell); return D
+## `( cell -- )` pop top element
+def pop(): return D.pop()
+## `( cell -- cell )` get top element w/o removing
+def top(): return D[-1]
+
+## `( ... -- ... n )` get stack depth: number of elements
+def depth(): push(len(D)); return D
+## `( ... -- )` clean the whole @ref D data stack
+def clear(): D.clear(); return D
 
 # ## used libs
 # import os, sys

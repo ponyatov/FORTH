@@ -2,7 +2,8 @@ line-length    = 80
 indent-width   = 4
 target-version = "py310"
 
-ignore = ["E26","E221","E222","E302","E305","E401","E402","E701","E702"]
+ignore = ["E26","E302","E305","E401","E402","E701","E702"
+        ,"E221","E222","F403","F405"]
 
 select = ["E", "F"]
 

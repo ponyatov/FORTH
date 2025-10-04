@@ -52,15 +52,6 @@ def grab(k, x=1250, y=440, w=640, h=360):
     os.system(
         f'import -window root -crop {w}x{h}+{x}+{y} png:doc/slide/{k}.png')
 
-import markdown
-
-def md2html(k):
-    with open(f'tmp/slide/{k}.html', 'w') as html:
-        with open(f'doc/slide/{k}.md') as md:
-            print(markdown.markdown(md.read()), file=html)
-
-md2html('29')
-
 def single(k):
     tts(k)
     png = f'doc/slide/{k}.png'# fragment[k]['png']
@@ -70,8 +61,8 @@ def single(k):
     os.system(f'cvlc --play-and-exit tmp/slide/{k}.mp4')
 
 # acer
-grab('29', 710, 70)
-single('29')
+grab('31', 710, 70)
+single('31')
 
 # mas
 grab('29', y=430)
