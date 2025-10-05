@@ -5,9 +5,9 @@
 /// @defgroup libc libc
 /// @{
 #include <assert.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
 /// @}
 
 /// @defgroup main main
@@ -21,7 +21,7 @@ extern void arg(int argc, char* argv);
 /// @ingroup forth
 /// @{
 
-/// @ref M size, bytes (64M max for MCU VM)
+/// @ref M size, bytes (64M max for MCU-hosted VM)
 #define Msz 0x10000
 /// @ref R size, @ref addr s
 #define Rsz 0x100
@@ -32,16 +32,24 @@ extern void arg(int argc, char* argv);
 /// @defgroup types types
 /// @ingroup forth
 /// @{
-typedef uint8_t byte;
-typedef uint16_t addr;
+typedef uint8_t byte;   ///< raw byte
+typedef uint16_t addr;  ///< @ref M address
+typedef int32_t cell;   ///< limited to 32 bits for MCU emulation
 /// @}
 
 /// @defgroup memory memory
 /// @ingroup forth
 /// @{
+
 extern byte M[Msz];  ///< main memory
-extern addr Cp;      ///< compiler pointer
-extern addr Ip;      ///< instruction pointer
+extern addr Cp;      ///< @ref M compiler pointer
+extern addr Ip;      ///< @ref M instruction pointer
+
+extern addr R[Rsz];  ///< return stack
+extern byte Rp;      ///< @ref R pointer (low-recursion limited)
+
+extern cell D[Dsz];  ///< data stack
+extern byte Dp;      ///< @ref D pointer
 /// @}
 
 /// @defgroup syntax syntax

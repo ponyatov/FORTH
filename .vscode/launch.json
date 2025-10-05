@@ -6,7 +6,7 @@
             "type"            : "python",
             "request"         : "launch",
             "program"         : "${workspaceFolder}/lib/${workspaceFolderBasename}.py",
-            "console"         : "integratedTerminal"
+            "console"         : "integratedTerminal",
         },
         {
             "name"            : "cmake:linux",
