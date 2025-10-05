@@ -2,6 +2,11 @@
     "version": 6,
     "buildPresets": [
         {
+            "name"            :  "win32",
+            "configurePreset" :  "win32",
+            "targets"         : ["all",",nstall"]
+        },
+        {
             "name"            :  "linux",
             "configurePreset" :  "linux",
             "targets"         : ["all","install"]
