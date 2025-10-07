@@ -25,15 +25,30 @@ dump()
 
 ## `( -- cell )` push any Python object into @ref D data stack
 def push(cell): D.append(cell); return D
+
 ## `( cell -- )` pop top element
 def pop(): return D.pop()
+
 ## `( cell -- cell )` get top element w/o removing
 def top(): return D[-1]
 
 ## `( ... -- ... n )` get stack depth: number of elements
 def depth(): push(len(D)); return D
+
 ## `( ... -- )` clean the whole @ref D data stack
 def clear(): D.clear(); return D
+
+## `( a -- a a )` duplicate top element
+def dup(): push(top()); return D
+
+## `( a b -- a )` drop top element
+def drop(): pop(); return D
+
+## `( a b -- b a )` swap two elements
+def swap(): a = pop(); b = pop(); push(a); push(b); return D
+
+## `( a b -- a b a )` copy sub-top element
+def over(): push(D[-2]); return D
 
 # ## used libs
 # import os, sys
