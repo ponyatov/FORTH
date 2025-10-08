@@ -12,7 +12,12 @@ class TestD:
     # yield; D.clear() # optional clean after test
 
     def test_push(self): assert push(1) == [1]; assert D == [1]
-    def test_pop(self): push(1); assert pop() == 1; assert D == []
+
+    def test_pop(self):
+        push(1); push(2); push(3); assert D == [1, 2, 3]
+        assert pop() == 3; assert D == [1, 2]
+        assert pop(1) == 1; assert D == [2]
+
     def test_top(self): push(1); assert top() == 1; assert D == [1]
 
     def test_clear(self): clear(); depth(); assert D == [0]
@@ -33,6 +38,15 @@ class TestD:
 
     def test_over(self):
         push(1); push(2); over(); assert D == [1, 2, 1]
+
+    def test_rot(self):
+        push(1); push(2); push(3); rot(); assert D == [2, 3, 1]
+
+    def test_mrot(self):
+        push(1); push(2); push(3); mrot(); assert D == [3, 1, 2]
+
+    def test_pick(self):
+        push(1); push(2); push(3); rot(); pick(); assert D == [2, 3, 2]
 
 ## test @ref R return stack operations
 class TestR:

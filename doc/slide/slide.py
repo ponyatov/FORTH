@@ -61,8 +61,8 @@ def single(k):
     os.system(f'cvlc --play-and-exit tmp/slide/{k}.mp4')
 
 # acer
-grab('31', 710, 70)
-single('31')
+grab('33', 710, 75)
+single('33')
 
 # mas
 grab('32', x=1225, y=370)

@@ -27,7 +27,8 @@ dump()
 def push(cell): D.append(cell); return D
 
 ## `( cell -- )` pop top element
-def pop(): return D.pop()
+## @param[in] idx optional stack index counting from stack top down
+def pop(idx=0): return D.pop(-1 - idx)
 
 ## `( cell -- cell )` get top element w/o removing
 def top(): return D[-1]
@@ -49,6 +50,16 @@ def swap(): a = pop(); b = pop(); push(a); push(b); return D
 
 ## `( a b -- a b a )` copy sub-top element
 def over(): push(D[-2]); return D
+
+## `( a b c -- b c a )` rotate cw
+def rot(): push(pop(2))
+
+## `( a b c -- c a b )` rorate ccw
+def mrot(): D.insert(-2, pop())
+
+## `( ... n -- ... D[n] )` pick n-th stack item counting from stack top down
+def pick(): push(D[-1 - pop()])
+
 
 # ## used libs
 # import os, sys
