@@ -77,7 +77,7 @@ def mul(): b = pop(); a = pop(); push(a * b)
 ## `/ ( a b -- a/b )` integer division
 def div(): b = pop(); a = pop(); push(a / b)
 
-## `% ( a b -- a%b )`
+## `% ( a b -- a%b )` modulo remainder
 def mod(): b = pop(); a = pop(); push(a % b)
 
 ## `^ ( a b -- a^b )`
