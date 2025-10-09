@@ -80,8 +80,7 @@ def div(): b = pop(); a = pop(); push(a / b)
 ## `% ( a b -- a%b )` modulo remainder
 def mod(): b = pop(); a = pop(); push(a % b)
 
-## `^ ( a b -- a^b )`
-def pow(): b = pop(); a = pop(); push(a ^ b)
+## Memory Operations
 
 # ## used libs
 # import os, sys
