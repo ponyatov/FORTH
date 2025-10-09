@@ -8,7 +8,7 @@ def test_always_fails(): assert not False
 class TestD:
 
     @pytest.fixture(autouse=True)
-    def clear_stack(self): clear()
+    def clear_stack(self): clear(); M = []
     # yield; D.clear() # optional clean after test
 
     class TestStack:
@@ -91,7 +91,27 @@ class TestD:
         def test_mod(self):
             push(+12); push(-34); mod(); assert D == [+12 % -34] # -22
 
+    class TestMemory:
+
+        def test_empty(self): assert M == []
+
+
 ## test @ref R return stack operations
 class TestR:
+
+    ## `M:[]`
     def test_clear(self):
         assert R == []
+
+    ## `M++ = cell`
+    def test_compile(self):
+        push(1); compile(); push(2); compile(); assert M == [1, 2]
+
+    def test_fetch(self):
+        self.test_compile()
+        push(1); fetch(); assert D == [2]
+
+    def test_store(self):
+        self.test_compile()
+        push(3); push(1); assert D == [3, 1]
+        store(); assert D == []; assert M == [1, 3]

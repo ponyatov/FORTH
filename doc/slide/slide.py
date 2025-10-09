@@ -1,5 +1,4 @@
-import os, re
-import ffmpeg
+import os, ffmpeg
 
 # try: os.mkdir('tmp/slide')
 # except FileExistsError: pass
@@ -61,8 +60,8 @@ def single(k):
     os.system(f'cvlc --play-and-exit tmp/slide/{k}.mp4')
 
 # acer
-grab('33', 710, 75)
-single('33')
+grab('35', 710, 75)
+single('35')
 
 # mas
 grab('34', x=1235, y=380)

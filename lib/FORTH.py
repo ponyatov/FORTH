@@ -14,10 +14,10 @@ GITHUB = f'https://github.com/ponyatov/{APP}'
 D = [] ## Data stack
 R = [] ## Return stack
 W = {} ## vocabulary Words
+M = [] ## main Memory
 
 ## `( -- )` dump FVM state
-def dump():
-    print(f'\nD:{D}\nR:{R}\nW:{W}\n')
+def dump(): print(f'\nD:{D}\nR:{R}\nW:{W}\nM:{M}')
 
 dump()
 
@@ -75,12 +75,21 @@ def sub(): b = pop(); a = pop(); push(a - b)
 def mul(): b = pop(); a = pop(); push(a * b)
 
 ## `/ ( a b -- a/b )` integer division
-def div(): b = pop(); a = pop(); push(a / b)
+def div(): b = pop(); a = pop(); push(a // b)
 
 ## `% ( a b -- a%b )` modulo remainder
 def mod(): b = pop(); a = pop(); push(a % b)
 
 ## Memory Operations
+
+# `, ( cell -- )` append cell to end of allocated @ref M
+def compile(): M.append(pop())
+
+## `@ ( addr -- cell )` fetch object from @ref M using integer index
+def fetch(): push(M[pop()])
+
+## `! ( cell addr -- )` store object to @ref M
+def store(): addr = pop(); M[addr] = pop()
 
 # ## used libs
 # import os, sys
