@@ -65,22 +65,22 @@ def depth(): push(len(D)); return D
 
 ## Arithmetic Operations
 
-## `ADD ( a b -- a+b )`
+## `+ ( a b -- a+b )`
 def add(): b = pop(); a = pop(); push(a + b)
 
-## `SUB ( a b -- a-b )`
+## `- ( a b -- a-b )`
 def sub(): b = pop(); a = pop(); push(a - b)
 
-## `MUL ( a b -- a*b )`
+## `* ( a b -- a*b )`
 def mul(): b = pop(); a = pop(); push(a * b)
 
-## `DIV ( a b -- a/b )`
+## `/ ( a b -- a/b )` integer division
 def div(): b = pop(); a = pop(); push(a / b)
 
-## `MOD ( a b -- a%b )`
+## `% ( a b -- a%b )`
 def mod(): b = pop(); a = pop(); push(a % b)
 
-## `POW ( a b -- a^b )`
+## `^ ( a b -- a^b )`
 def pow(): b = pop(); a = pop(); push(a ^ b)
 
 # ## used libs

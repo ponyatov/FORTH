@@ -71,17 +71,25 @@ class TestD:
 
     class TestMath:
 
+        ## `+ ( a b -- a+b )`
         def test_add(self):
-            push(+123); push(-456); add(); assert D == [+123 + -456]
+            push(+12); push(-34); add(); assert D == [+12 + -34] # -22
 
+        ## `- ( a b -- a-b )`
         def test_sub(self):
-            push(+123); push(-456); add(); assert D == [+123 - -456]
+            push(+12); push(-34); sub(); assert D == [+12 - -34] # +46
 
+        ## `* ( a b -- a*b )`
         def test_mul(self):
-            push(+123); push(-456); add(); assert D == [+123 * -456]
+            push(+12); push(-34); mul(); assert D == [+12 * -34] # -408
 
+        ## `/ ( a b -- a/b )`
         def test_div(self):
-            push(+123); push(-456); add(); assert D == [+123 / -456]
+            push(+12); push(-34); div(); assert D == [+12 // -34] # -1
+
+        ## `% ( a b -- a%b )`
+        def test_mod(self):
+            push(+12); push(-34); mod(); assert D == [+12 % -34] # -22
 
 ## test @ref R return stack operations
 class TestR:
