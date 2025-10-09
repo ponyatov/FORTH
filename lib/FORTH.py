@@ -21,45 +21,67 @@ def dump():
 
 dump()
 
-## stack operations
+## Stack Operations
 
 ## `( -- cell )` push any Python object into @ref D data stack
-def push(cell): D.append(cell); return D
+def push(cell): D.append(cell)
 
 ## `( cell -- )` pop top element
 ## @param[in] idx optional stack index counting from stack top down
 def pop(idx=0): return D.pop(-1 - idx)
 
 ## `( cell -- cell )` get top element w/o removing
-def top(): return D[-1]
+def top(idx=0): return D[-1 - idx]
 
-## `( ... -- ... n )` get stack depth: number of elements
-def depth(): push(len(D)); return D
+## `CLEAR ( ... -- )` clean the whole @ref D data stack
+def clear(): D.clear()
 
-## `( ... -- )` clean the whole @ref D data stack
-def clear(): D.clear(); return D
+## `DUP ( a -- a a )` duplicate top element
+def dup(): push(top())
 
-## `( a -- a a )` duplicate top element
-def dup(): push(top()); return D
+## `DROP ( a b -- a )` drop top element
+def drop(): pop()
 
-## `( a b -- a )` drop top element
-def drop(): pop(); return D
+## `PRESS ( a b -- b )` drop sub-top element
+def press(): pop(1)
 
-## `( a b -- b a )` swap two elements
-def swap(): a = pop(); b = pop(); push(a); push(b); return D
+## `SWAP ( a b -- b a )` swap two elements
+def swap(): push(pop(1))
 
-## `( a b -- a b a )` copy sub-top element
-def over(): push(D[-2]); return D
+## `OVER ( a b -- a b a )` copy sub-top element
+def over(): push(D[-2])
 
-## `( a b c -- b c a )` rotate cw
+## `ROT ( a b c -- b c a )` rotate cw
 def rot(): push(pop(2))
 
-## `( a b c -- c a b )` rorate ccw
+## `-ROT ( a b c -- c a b )` rorate ccw
 def mrot(): D.insert(-2, pop())
 
-## `( ... n -- ... D[n] )` pick n-th stack item counting from stack top down
+## `PICK ( ... n -- ... D[n] )` pick n-th stack item counting from stack top down
 def pick(): push(D[-1 - pop()])
 
+## `DEPTH ( ... -- ... n )` get stack depth: number of elements
+def depth(): push(len(D)); return D
+
+## Arithmetic Operations
+
+## `ADD ( a b -- a+b )`
+def add(): b = pop(); a = pop(); push(a + b)
+
+## `SUB ( a b -- a-b )`
+def sub(): b = pop(); a = pop(); push(a - b)
+
+## `MUL ( a b -- a*b )`
+def mul(): b = pop(); a = pop(); push(a * b)
+
+## `DIV ( a b -- a/b )`
+def div(): b = pop(); a = pop(); push(a / b)
+
+## `MOD ( a b -- a%b )`
+def mod(): b = pop(); a = pop(); push(a % b)
+
+## `POW ( a b -- a^b )`
+def pow(): b = pop(); a = pop(); push(a ^ b)
 
 # ## used libs
 # import os, sys

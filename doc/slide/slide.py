@@ -1,10 +1,10 @@
 import os, re
 import ffmpeg
 
-try: os.mkdir('tmp/slide')
-except FileExistsError: pass
+# try: os.mkdir('tmp/slide')
+# except FileExistsError: pass
 
-mp4 = 'tmp/slide/mp4.mp4'
+# mp4 = 'tmp/slide/mp4.mp4'
 
 def tts(name):
     mp3 = f'tmp/slide/{name}.mp3'
@@ -17,19 +17,19 @@ def tts(name):
     print(ru2mp3); os.system(ru2mp3)
     return mp3
 
-# video fragments
-fragment = {
-    '00': {'png': 'doc/splash.png', 'mp3': 'doc/dos.mp3', } # splashscreen
-}
+# # video fragments
+# fragment = {
+#     '00': {'png': 'doc/splash.png', 'mp3': 'doc/dos.mp3', } # splashscreen
+# }
 
-for i in filter(lambda name: re.match(r'\d+.(md|png)', name), os.listdir('doc/slide')):
-    name, ext = i.split('.')
-    if name not in fragment.keys(): fragment[name] = {}
-    match ext:
-        case 'md':
-            fragment[name]['mp3'] = f'tmp/slide/{name}.mp3'
-        case 'png':
-            fragment[name]['png'] = f'doc/slide/{name}.png'
+# for i in filter(lambda name: re.match(r'\d+.(md|png)', name), os.listdir('doc/slide')):
+#     name, ext = i.split('.')
+#     if name not in fragment.keys(): fragment[name] = {}
+#     match ext:
+#         case 'md':
+#             fragment[name]['mp3'] = f'tmp/slide/{name}.mp3'
+#         case 'png':
+#             fragment[name]['png'] = f'doc/slide/{name}.png'
 
 def slide(k, video, audio, dura):
     video = ffmpeg.input(video, loop=1, framerate=1)
@@ -65,16 +65,16 @@ grab('33', 710, 75)
 single('33')
 
 # mas
-grab('32', x=1225, y=370)
+grab('32', x=1250, y=370)
 single('32')
 
-with open('tmp/slide/fragments.list', 'w') as list:
-    with open('tmp/slide/m3u.m3u', 'w') as m3u:
-        for k in sorted(fragment.keys()):
-            single(k)
-            print(f'{k}.mp4', file=m3u)
-            print(f'file {k}.mp4', file=list)
+# with open('tmp/slide/fragments.list', 'w') as list:
+#     with open('tmp/slide/m3u.m3u', 'w') as m3u:
+#         for k in sorted(fragment.keys()):
+#             single(k)
+#             print(f'{k}.mp4', file=m3u)
+#             print(f'file {k}.mp4', file=list)
 
-os.system('cvlc tmp/slide/m3u.m3u')# --fullscreen')
-os.system('ffmpeg -f concat -safe 0 -i tmp/slide/fragments.list tmp/slide/mp4.mp4')
-os.system('vlc tmp/slide/mp4.mp4')# --fullscreen')
+# os.system('cvlc tmp/slide/m3u.m3u')# --fullscreen')
+# os.system('ffmpeg -f concat -safe 0 -i tmp/slide/fragments.list tmp/slide/mp4.mp4')
+# os.system('vlc tmp/slide/mp4.mp4')# --fullscreen')
