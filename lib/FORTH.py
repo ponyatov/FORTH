@@ -153,7 +153,8 @@ lexer = lex.lex()
 
 ## REPL
 
-## `INPUT ( -- )` fetch next source code string or user input into @ref PAD
+## `INPUT ( -- )` get next source code string or user input
+## @details into @ref PAD in case of low-level FORTH system
 def input_(): lexer.input(input(f'{lexer.lineno}> '))
 
 def REPL():
