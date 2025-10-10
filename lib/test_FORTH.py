@@ -8,7 +8,7 @@ def test_always_fails(): assert not False
 class TestD:
 
     @pytest.fixture(autouse=True)
-    def clear_stack(self): clear(); M = []
+    def clear_stack(self): D.clear(); M.clear()
     # yield; D.clear() # optional clean after test
 
     class TestStack:
@@ -95,6 +95,17 @@ class TestD:
 
         def test_empty(self): assert M == []
 
+        ## `M++ = cell`
+        def test_compile(self):
+            push(1); compile(); push(2); compile(); assert M == [1, 2]
+
+        def test_fetch(self):
+            self.test_compile()
+            push(1); fetch(); assert D == [2]
+
+        def test_store(self):
+            self.test_compile()
+            push(3); push(1); store(); assert M == [1, 3]
 
 ## test @ref R return stack operations
 class TestR:
@@ -103,15 +114,20 @@ class TestR:
     def test_clear(self):
         assert R == []
 
-    ## `M++ = cell`
-    def test_compile(self):
-        push(1); compile(); push(2); compile(); assert D == []
+## test FORTH lexer
 
-    def test_fetch(self):
-        self.test_compile()
-        push(1); fetch(); assert D == [2]
+class TestLexer:
 
-    def test_store(self):
-        self.test_compile();clear()
-        push(3); push(1); assert D == [3, 1]
-        # store(); assert D == []; assert M == [1, 3]
+    def test_empty(self):
+        lexer.input(''); assert list(lexer) == []
+
+    def test_spaces(self):
+        lexer.input(' \t\r\n'); assert list(lexer) == []
+
+    def test_items(self):
+        lexer.input(' 12 +34 -56 abc %$#')
+        assert [t.value for t in lexer] == [12, 34, -56, 'abc', '%$#']
+
+    def test_linecount(self):
+        lexer.lineno = 1
+        self.test_spaces(); assert lexer.lineno == 2

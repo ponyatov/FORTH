@@ -55,7 +55,7 @@ def rot(): push(pop(2))
 ## `-ROT ( a b c -- c a b )` rorate ccw
 def mrot(): D.insert(-2, pop())
 
-## `PICK ( ... n -- ... D[n] )` pick n-th stack item counting from stack top down
+## `PICK ( ... n -- ... D[n] )` pick n-th stack item counting top down (<-left)
 def pick(): push(D[-1 - pop()])
 
 ## `DEPTH ( ... -- ... n )` get stack depth: number of elements
@@ -149,11 +149,10 @@ lexer = lex.lex()
 
 if __name__ == '__main__':
     dump()
-    lexer.input(' 12 +34 -56 abc %$#'); print(list(lexer))
+    
 
 ## `INPUT ( -- )` fetch next source code string or user input into @ref PAD
 def input_(): lexer.input(input('> '))
-
 
 # ## used libs
 # import os, sys
