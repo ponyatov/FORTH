@@ -64,8 +64,8 @@ grab('35', 710, 75)
 single('35')
 
 # mas
-grab('38', x=1200, y=380)
-single('38')
+grab('39', x=1200, y=380)
+single('39')
 
 # with open('tmp/slide/fragments.list', 'w') as list:
 #     with open('tmp/slide/m3u.m3u', 'w') as m3u:
