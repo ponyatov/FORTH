@@ -127,6 +127,9 @@ tokens = ['INT', 'NUM', 'WORD']
 ## drop spaces
 t_ignore = '[ \t\r]'
 
+## line comments
+t_ignore_comment = r'\\.*'
+
 ## count lines using EOL chars as delimiter
 def t_newline(t):
     r'\n+'
