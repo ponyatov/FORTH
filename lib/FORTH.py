@@ -111,8 +111,8 @@ W['NOP'] = nop; W['BYE'] = bye; W
 ## `WORD ( -- name )` get word name from source code stream (lexer)
 def word(): push('NOP') # lexer()
 
-## `FIND ( name:str -- item|none )` find item in vocabulary by it's name
-def find(): push(W.get(pop(), None))
+## `FIND ( word:token -- item|none )` find item in vocabulary by it's name
+def find(): push(W[pop().value])
 
 ## `EXEC ( item -- )` execute (found) item on a stack top
 def exec(): pop()()
@@ -170,6 +170,11 @@ def REPL():
         while True:
             token()
             if top() is None: drop(); break
+            match top().type:
+                case 'INT': push(pop().value) # \ literal number
+                case 'NUM': push(pop().value) # /
+                case 'WORD': find(); exec()   # word name: find & execute
+                case _ as e: raise TypeError(e)
 
 ## run @ref REPL if was started with as script: bin/python3 lib/FORTH.py
 if __name__ == '__main__': REPL()
