@@ -97,7 +97,7 @@ import sys, time
 def nop(): pass
 
 ## `BYE ( -- )` terminate system (poweroff of deep sleep)
-def bye(): sys.exit(0)
+def bye(): print(); sys.exit(0)
 
 ## `HALT ( -- )` stop system until external event happens (sleep mode)
 def halt():
@@ -157,76 +157,19 @@ lexer = lex.lex()
 ## @details into @ref PAD in case of low-level FORTH system
 def input_(): lexer.input(input(f'{lexer.lineno}> '))
 
+## `TOKEN ( -- token|None )` call lexer to get next token
+def token(): push(lexer.token())
+
+## `REPL ( -- )` run CLI loop
 def REPL():
     while True:
         dump()
         try: input_()
         except EOFError: bye()
-        print(list(lexer))
+        except KeyboardInterrupt: bye()
+        while True:
+            token()
+            if top() is None: drop(); break
 
+## run @ref REPL if was started with as script: bin/python3 lib/FORTH.py
 if __name__ == '__main__': REPL()
-
-# ## used libs
-# import os, sys
-
-# ## project generator
-
-# ## create file
-# def touch(name, content=None):
-#     with open(name, 'w') as f:
-#         if content is not None: print(content, file=f)
-
-# ## create directory
-# def mkdir(name, giti='!.gitignore'):
-#     try: os.mkdir(name)
-#     except FileExistsError: pass
-#     with open(f'{name}/.gitignore','w') as g: print(giti, file=g)
-
-# ## run `meld` using side project template
-# def meld(file):
-#     os.system(f'meld {file} ~/em/{file}')
-
-# ## generic project structure
-# dirs = ['.','.vscode','bin','doc','lib','inc','src','tmp','ref']
-# for d in dirs: mkdir(d)
-
-# def README():
-#     touch('README.md',f'''# ![](doc/logo.png) `{APP}` {VERSION}
-# ## {TITLE}\n
-# (c) {AUTHOR} <<{EMAIL}>> {YEAR} {LICENSE}\n
-# github: {GITHUB}''')
-
-# README()
-
-# vscode = ['extensions', 'settings', 'launch', 'tasks', 'c_cpp_properties']
-# for v in vscode:
-#     touch(f'.vscode/{v}.json')
-# meld('.vscode')
-
-# def apt():
-#     touch('apt.Debian',f'''git make curl
-# python3 python3-venv python3-autopep8 python3-ply''')
-# apt();meld('apt.Debian')
-
-# ## program run trace flag
-# trace = True
-
-# # core VM commands
-
-# ## `( -- )` empty command: no nothing
-# def nop():
-#     if trace: print(nop)
-# nop()
-
-
-# def halt():
-#     " ( -- ) stop system "
-#     if trace:
-#         print(halt)
-#     sys.exit(0)
-
-
-# # halt()
-
-## Language Server Protocol
-# from pygls.lsp.server import LanguageServer
