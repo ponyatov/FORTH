@@ -127,9 +127,6 @@ tokens = ['INT', 'NUM', 'WORD']
 ## drop spaces
 t_ignore = '[ \t\r]'
 
-## lexer error callback
-def t_error(t): raise SyntaxError(t)
-
 ## count lines using EOL chars as delimiter
 def t_newline(t):
     r'\n+'
@@ -140,19 +137,30 @@ def t_INT(t):
     r'[+\-]?[0-9]+'
     t.value = int(t.value); return t
 
+## group of any non-space chars
 def t_WORD(t):
     r'[^ \t\r\n]+'
     return t
 
+## lexer error callback
+def t_error(t): raise SyntaxError(t)
+
 ## build lexer from defined `t_` rules
 lexer = lex.lex()
 
-if __name__ == '__main__':
-    dump()
-    
+## REPL
 
 ## `INPUT ( -- )` fetch next source code string or user input into @ref PAD
-def input_(): lexer.input(input('> '))
+def input_(): lexer.input(input(f'{lexer.lineno}> '))
+
+def REPL():
+    while True:
+        dump()
+        try: input_()
+        except EOFError: bye()
+        print(list(lexer))
+
+if __name__ == '__main__': REPL()
 
 # ## used libs
 # import os, sys
