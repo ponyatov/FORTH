@@ -16,6 +16,22 @@
             "problemMatcher" : []
         },
         {
+            "label"          : "FORTH: REPL",
+            "type"           : "shell",
+            "command"        : "bin/python3 lib/FORTH.py",
+            "problemMatcher" : [],
+            "presentation"   : {"showReuseMessage": true, "focus": true, "reveal": "silent", "close": false},
+            "group"          : {"kind": "build", "isDefault": true}
+        },
+        {
+            "label"          : "FORTH: tests",
+            "type"           : "shell",
+            "command"        : "bin/pytest lib/test_FORTH.py",
+            "problemMatcher" : [],
+            "presentation"   : {"showReuseMessage": true, "focus": true, "reveal": "silent", "close": false},
+            "group"          : {"kind": "build", "isDefault": true}
+        },
+        {
             "label"          : "AI: context",
             "type"           : "shell",
             "command"        : "make ai",

@@ -16,10 +16,8 @@ R = [] ## Return stack
 W = {} ## vocabulary Words
 M = [] ## main Memory
 
-## `( -- )` dump FVM state
+## `DUMP ( -- )` dump FVM state
 def dump(): print(f'\nD:{D}\nR:{R}\nW:{W}\nM:{M}')
-
-dump()
 
 ## Stack Operations
 
@@ -90,6 +88,72 @@ def fetch(): push(M[pop()])
 
 ## `! ( cell addr -- )` store object to @ref M
 def store(): addr = pop(); M[addr] = pop()
+
+## System Control
+
+import sys, time
+
+## `NOP ( -- )` do nothing command
+def nop(): pass
+
+## `BYE ( -- )` terminate system (poweroff of deep sleep)
+def bye(): sys.exit(0)
+
+## `HALT ( -- )` stop system until external event happens (sleep mode)
+def halt():
+    while True: time.sleep(0.1)
+
+## Vocabulary
+
+## fill vocabulary (most simple version w/o attributes & @ref M memory)
+W['NOP'] = nop; W['BYE'] = bye; W
+
+## `WORD ( -- name )` get word name from source code stream (lexer)
+def word(): push('NOP') # lexer()
+
+## `FIND ( name:str -- item|none )` find item in vocabulary by it's name
+def find(): push(W.get(pop(), None))
+
+## `EXEC ( item -- )` execute (found) item on a stack top
+def exec(): pop()()
+
+## Lexer
+
+import ply.lex as lex
+
+## token types: integer, floating point number, and word name
+tokens = ['INT', 'NUM', 'WORD']
+
+## drop spaces
+t_ignore = '[ \t\r]'
+
+## lexer error callback
+def t_error(t): raise SyntaxError(t)
+
+## count lines using EOL chars as delimiter
+def t_newline(t):
+    r'\n+'
+    t.lexer.lineno += len(t.value)
+
+## integer number rule: regexp + token value conversion from string
+def t_INT(t):
+    r'[+\-]?[0-9]+'
+    t.value = int(t.value); return t
+
+def t_WORD(t):
+    r'[^ \t\r\n]+'
+    return t
+
+## build lexer from defined `t_` rules
+lexer = lex.lex()
+
+if __name__ == '__main__':
+    dump()
+    lexer.input(' 12 +34 -56 abc %$#'); print(list(lexer))
+
+## `INPUT ( -- )` fetch next source code string or user input into @ref PAD
+def input_(): lexer.input(input('> '))
+
 
 # ## used libs
 # import os, sys
